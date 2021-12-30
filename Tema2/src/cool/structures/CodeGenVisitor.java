@@ -51,8 +51,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     public ST visit(Program program) {
         dataSection = templates.getInstanceOf("sequenceSpaced");
         textSection = templates.getInstanceOf("sequenceSpaced");
-        System.out.println("aici");
-        initCodeSections();
+
+        initCodeSections(); // code default in stg pentru Object, IO, Int, String, Bool
 
         for (ASTNode e : program.getClasses())
             textSection.add("e", e.accept(this));

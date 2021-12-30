@@ -3,7 +3,22 @@ sequenceSpaced(e) ::= "<e; separator=\"\n\n\">"
 
 program(data, text) ::= <<
 .data
-    .align 2
+<dataGlobals()>
+<data>
+
+    .globl heap_start
+heap_start:
+    .word 0
+
+.text
+<textGlobals()>
+<text>
+	li $v0, 10
+	syscall		#exit
+>>
+
+dataGlobals() ::= <<
+.align 2
     .globl class_nameTab
     .globl Int_protObj
     .globl String_protObj
@@ -13,26 +28,146 @@ program(data, text) ::= <<
     .globl _int_tag
     .globl _string_tag
     .globl _bool_tag
-
-<data>
-
-    .globl heap_start
-heap_start:
-    .word 0
-.text
-    .globl Int_init
-    .globl String_init
-    .globl Bool_init
-    .globl Main_init
-    .globl Main.main
-<text>
-	li $v0, 10
-	syscall		#exit
+_int_tag:
+    .word 2
+_string_tag:
+    .word 3
+_bool_tag:
+    .word 4
 >>
 
+str_const(index, dim, len_obj, str) ::= <<
+str_const<index>:
+    .word 3
+    .word <dim>
+    .word String_dispTab
+    .word <len_obj>
+    .asciiz <str>
+    .align 2
+>>
 
+int_const(index, value) ::= <<
+int_const<index>:
+    .word 2
+    .word 4
+    .word Int_dispTab
+    .word <value>
+>>
 
-str_attr(len, str) ::= <<
+str_constants(other_consts) ::= <<
+str_const0:
+    .word 3
+    .word 5
+    .word String_dispTab
+    .word int_const0
+    .asciiz ""
+    .align 2
+str_const1:
+    .word 3
+    .word 6
+    .word String_dispTab
+    .word int_const1
+    .asciiz "Object"
+    .align 2
+str_const2:
+    .word 3
+    .word 5
+    .word String_dispTab
+    .word int_const2
+    .asciiz "IO"
+    .align 2
+str_const3:
+    .word 3
+    .word 5
+    .word String_dispTab
+    .word int_const3
+    .asciiz "Int"
+    .align 2
+str_const4:
+    .word 3
+    .word 6
+    .word String_dispTab
+    .word int_const1
+    .asciiz "String"
+    .align 2
+str_const5:
+    .word 3
+    .word 6
+    .word String_dispTab
+    .word int_const4
+    .asciiz "Bool"
+    .align 2
+<other_consts>
+>>
+
+int_constants(other_consts) ::= <<
+int_const0:
+    .word 2
+    .word 4
+    .word Int_dispTab
+    .word 0
+int_const1:
+    .word 2
+    .word 4
+    .word Int_dispTab
+    .word 6
+int_const2:
+    .word 2
+    .word 4
+    .word Int_dispTab
+    .word 2
+int_const3:
+    .word 2
+    .word 4
+    .word Int_dispTab
+    .word 3
+int_const4:
+    .word 2
+    .word 4
+    .word Int_dispTab
+    .word 4
+<other_consts>
+>>
+
+bool_constants() ::= <<
+bool_const0:
+    .word 4
+    .word 4
+    .word Bool_dispTab
+    .word 0
+bool_const1:
+    .word 4
+    .word 4
+    .word Bool_dispTab
+    .word 1
+>>
+
+nameTab(other_names) ::= <<
+class_nameTab:
+    .word str_const1
+    .word str_const2
+    .word str_const3
+    .word str_const4
+    .word str_const5
+<other_names>
+>>
+
+objTab(other_prot_init) ::= <<
+class_objTab:
+    .word Object_protObj
+    .word Object_init
+    .word IO_protObj
+    .word IO_init
+    .word Int_protObj
+    .word Int_init
+    .word String_protObj
+    .word String_init
+    .word Bool_protObj
+    .word Bool_init
+<other_prot_init>
+>>
+
+str_attribute(len, str) ::= <<
    .word <len>
    .asciiz <str>
    .align 2
@@ -50,9 +185,33 @@ protObj(class, index, dim, disp_ptr, attributes) ::= <<
 <attributes>
 >>
 
-objTab() ::= <<
-class_objTab:
-
+objPrototypes(other_prototypes) ::= <<
+Object_protObj:
+    .word 0
+    .word 3
+    .word Object_dispTab
+IO_protObj:
+    .word 1
+    .word 3
+    .word IO_dispTab
+Int_protObj:
+    .word 2
+    .word 4
+    .word Int_dispTab
+    .word 0
+String_protObj:
+    .word 3
+    .word 5
+    .word String_dispTab
+    .word int_const0
+    .asciiz ""
+    .align 2
+Bool_protObj:
+    .word 4
+    .word 4
+    .word Bool_dispTab
+    .word 0
+<other_prototypes>
 >>
 
 dispTab(class, methods) ::= <<
@@ -60,13 +219,120 @@ dispTab(class, methods) ::= <<
 <methods>
 >>
 
-nameTab(names) ::= <<
-class_nameTab:
-<names>
+dispTables(other_dispTables) ::= <<
+Object_dispTab:
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+IO_dispTab:
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word IO.out_string
+    .word IO.out_int
+    .word IO.in_string
+    .word IO.in_int
+Int_dispTab:
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+String_dispTab:
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word String.length
+    .word String.concat
+    .word String.substr
+Bool_dispTab:
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+<other_dispTables>
 >>
 
-methodDef(class, body, offset) ::= <<
-<class>_init:
+textGlobals() ::= <<
+    .globl Int_init
+    .globl String_init
+    .globl Bool_init
+    .globl Main_init
+    .globl Main.main
+>>
+
+initMethods(other_initMethods) ::= <<
+Object_init:
+    addiu $sp $sp -12
+    sw $fp 12($sp)
+    sw $s0 8($sp)
+    sw $ra 4($sp)
+    addiu $fp $sp 4
+    move $s0 $a0
+    move $a0 $s0
+    lw $fp 12($sp)
+    lw $s0 8($sp)
+    lw $ra 4($sp)
+    addiu $sp $sp 12
+    jr $ra
+IO_init:
+    addiu $sp $sp -12
+    sw $fp 12($sp)
+    sw $s0 8($sp)
+    sw $ra 4($sp)
+    addiu $fp $sp 4
+    move $s0 $a0
+    jal Object_init
+    move $a0 $s0
+    lw $fp 12($sp)
+    lw $s0 8($sp)
+    lw $ra 4($sp)
+    addiu $sp $sp 12
+    jr $ra
+Int_init:
+    addiu $sp $sp -12
+    sw $fp 12($sp)
+    sw $s0 8($sp)
+    sw $ra 4($sp)
+    addiu $fp $sp 4
+    move $s0 $a0
+    jal Object_init
+    move $a0 $s0
+    lw $fp 12($sp)
+    lw $s0 8($sp)
+    lw $ra 4($sp)
+    addiu $sp $sp 12
+    jr $ra
+String_init:
+    addiu $sp $sp -12
+    sw $fp 12($sp)
+    sw $s0 8($sp)
+    sw $ra 4($sp)
+    addiu $fp $sp 4
+    move $s0 $a0
+    jal Object_init
+    move $a0 $s0
+    lw $fp 12($sp)
+    lw $s0 8($sp)
+    lw $ra 4($sp)
+    addiu $sp $sp 12
+    jr $ra
+Bool_init:
+    addiu $sp $sp -12
+    sw $fp 12($sp)
+    sw $s0 8($sp)
+    sw $ra 4($sp)
+    addiu $fp $sp 4
+    move $s0 $a0
+    jal Object_init
+    move $a0 $s0
+    lw $fp 12($sp)
+    lw $s0 8($sp)
+    lw $ra 4($sp)
+    addiu $sp $sp 12
+    jr $ra
+<other_initMethods>
+>>
+
+methodDef(class, method, body, offset) ::= <<
+<class>.<method>:
     addiu $sp $sp -12
     sw $fp 12($sp)
     sw $s0 8($sp)
@@ -79,4 +345,42 @@ methodDef(class, body, offset) ::= <<
     lw $ra 4($sp)
     addiu $sp $sp <offset>  # 12 + 4 * nr_params
     jr $ra
+>>
+
+arg(e) ::= <<
+<e>
+    sw $a0 0($sp)
+    addiu $sp $sp -4
+>>
+
+dispatch_abort_call(file_name, line_number) ::= <<
+    la $a0 <file_name>
+    li $ti <line_number>
+    jal _dispatch_abort
+>>
+
+simple_dispatch(args, index, file_name, line_number, method_offset) ::= <<
+    move $a0 $s0
+<args>
+    bnez $a0 dispatch<index>
+<dispatch_abort_call(file_name, line_number)>
+dispatch<index>:
+    lw $t1 8($a0)  # dispatch table
+    lw $t1 <method_offset>($t1)  # method offset
+    jalr $t1
+>>
+
+dispatch(e, args, index, file_name, line_number, method_offset) ::= <<
+<args>
+<e> # self object in $a0
+    bnez $a0 dispatch<index>
+<dispatch_abort_call(file_name, line_number)>
+dispatch<index>:
+    lw $t1 8($a0)  # dispatch table
+    lw $t1 <method_offset>($t1)  # method offset
+    jalr $t1
+>>
+
+param(offset) ::= <<
+    lw $a0 <offset>($fp)  # 12 + 4 * (param_index - 1)
 >>
