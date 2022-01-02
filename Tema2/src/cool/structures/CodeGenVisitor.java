@@ -6,7 +6,10 @@ import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
 public class CodeGenVisitor implements ASTVisitor<ST> {
-    static STGroupFile templates = new STGroupFile("src/cool/structures/cgen.stg");
+    //for debugging
+    //    static STGroupFile templates = new STGroupFile("src/cool/structures/cgen.stg");
+    //for checker script
+    static STGroupFile templates = new STGroupFile("cool/structures/cgen.stg");
 
     ST dataSection;
     ST textSection;

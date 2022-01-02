@@ -46,7 +46,7 @@ public class Compiler {
                 tokenStream = new CommonTokenStream(lexer);
             else
                 tokenStream.setTokenSource(lexer);
-                
+
             /*
             // Test lexer only.
             tokenStream.fill();
@@ -54,7 +54,7 @@ public class Compiler {
             tokens.stream().forEach(token -> {
                 var text = token.getText();
                 var name = CoolLexer.VOCABULARY.getSymbolicName(token.getType());
-                
+
                 System.out.println(text + " : " + name);
                 //System.out.println(token);
             });
