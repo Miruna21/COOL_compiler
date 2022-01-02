@@ -1,0 +1,21 @@
+SPIM Version 8.0 of January 8, 2010
+Copyright 1990-2010, James R. Larus.
+All Rights Reserved.
+See the file README for a full copyright notice.
+Loaded: trap.handler.nogc
+The following symbols are undefined:
+heap_start
+_bool_tag
+Int_protObj
+_int_tag
+_string_tag
+Main.main
+String_protObj
+class_nameTab
+Int_init
+String_init
+Main_protObj
+main
+Main_init
+
+[0x00400010]	0x3c010000  lui $1, 0 [heap_start]          ; 184: la	$gp heap_start	# init heap pointer
