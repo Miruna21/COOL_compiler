@@ -31,11 +31,22 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     Integer classIndex = 0;
 
-    private void dfs(ClassSymbol node) {
+    int PROTOTYPE_LENGTH = 12;
+
+    private void dfs(ClassSymbol node, int offset) {
+        for (IdSymbol attr : node.attributes.values()) {
+            if (attr.name.equals("self")) {
+                continue;
+            }
+            TypeSymbol type = attr.getType();
+            type.setOffset(offset + PROTOTYPE_LENGTH);
+            offset += 4;
+        }
+
         for (ClassSymbol child : node.getChildren()) {
             child.setClassIndex(classIndex);
             classIndex++;
-            dfs(child);
+            dfs(child, offset);
         }
     }
 
@@ -44,7 +55,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         root.setClassIndex(classIndex);
 
         classIndex++;
-        dfs(root);
+        dfs(root, 0);
     }
 
     private void initCodeSections() {
@@ -87,8 +98,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
             if (attr.name.equals("self")) {
                 continue;
             }
-//            TypeSymbol type = attr.getType();
-            atrributes.add("e", attr.name);
+            TypeSymbol type = attr.getType();
+            atrributes.add("e", attr.name + " " + type.getOffset());
             // aici am nevoie de miru's map
         }
 

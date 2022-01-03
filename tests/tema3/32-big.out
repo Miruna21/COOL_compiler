@@ -19,8 +19,8 @@ List_protObj:
     .word 5645
     .word 12
     .word List_disptable
-elem
-next
+elem 12
+next 16
 
 Main_protObj:
     .word 5646
