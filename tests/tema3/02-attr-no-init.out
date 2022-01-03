@@ -19,92 +19,102 @@ A_protObj:
     .word 16
     .word 12
     .word A_disptable
-a 12
+    .word int_const0
 
 B_protObj:
     .word 17
     .word 12
     .word B_disptable
-a 12
-b 16
+    .word int_const0
+    .word str_const0
 
 C_protObj:
     .word 21
     .word 12
     .word C_disptable
-a 12
-c 16
+    .word int_const0
+    .word bool_const0
 
 D_protObj:
     .word 18
     .word 12
     .word D_disptable
-a 12
-b 16
+    .word int_const0
+    .word str_const0
 
 E_protObj:
     .word 19
     .word 12
     .word E_disptable
-a 12
-b 16
+    .word int_const0
+    .word str_const0
 
 F_protObj:
     .word 22
     .word 12
     .word F_disptable
-a 12
-c 16
+    .word int_const0
+    .word bool_const0
 
 Main_protObj:
     .word 20
     .word 12
     .word Main_disptable
-a 12
-b 16
-x 20
+    .word int_const0
+    .word str_const0
+    .word 0
 
 A_dispTab:
-Object.abort
-Object.type_name
-Object.copy
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
 
 B_dispTab:
-Object.abort
-Object.type_name
-Object.copy
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
 
 C_dispTab:
-Object.abort
-Object.type_name
-Object.copy
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
 
 D_dispTab:
-Object.abort
-Object.type_name
-Object.copy
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
 
 E_dispTab:
-Object.abort
-Object.type_name
-Object.copy
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
 
 F_dispTab:
-Object.abort
-Object.type_name
-Object.copy
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
 
 Main_dispTab:
-Object.abort
-Object.type_name
-Object.copy
-Main.main
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word Main.main
 
+str_const1:
+    .word 3
+    .word 4
+    .word String_dispTab
+    .word int_const0
+    .asciiz 
+    .align 2
 
+int_const1:
+    .word 2
+    .word 4
+    .word Int_dispTab
+    .word 0
 
-
-
-
+False
 
     .globl heap_start
 heap_start:

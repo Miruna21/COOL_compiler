@@ -99,8 +99,21 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
                 continue;
             }
             TypeSymbol type = attr.getType();
-            atrributes.add("e", attr.name + " " + type.getOffset());
-            // aici am nevoie de miru's map
+
+            ST attrST = templates.getInstanceOf("word");
+
+            String value;
+            if (type == ClassSymbol.INT) {
+                value = get_or_generate_int(0);
+            } else if (type == ClassSymbol.STRING) {
+                value = get_or_generate_str("");
+            } else if (type == ClassSymbol.BOOL) {
+                value = get_or_generate_bool("False");
+            } else {
+                value = "0";
+            }
+            attrST.add("value", value);
+            atrributes.add("e", attrST);
         }
 
         return atrributes;
@@ -118,7 +131,6 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     public ST createMethods(ClassSymbol classSymbol) {
         ST methods;
-
         if (classSymbol.getParent() == SymbolTable.globals) {
             methods = templates.getInstanceOf("sequence");
         } else {
@@ -127,7 +139,9 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
         for (MethodSymbol method : classSymbol.methods.values()) {
             String methodName = method.getName();
-            methods.add("e", classSymbol.name + "." + methodName);
+            ST methodST = templates.getInstanceOf("word");
+            methodST.add("value", classSymbol.name + "." + methodName);
+            methods.add("e", methodST);
         }
 
         return methods;
@@ -187,6 +201,27 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     @Override
     public ST visit(Id id) {
         return null;
+    }
+
+    String get_or_generate_int(Integer literal) {
+        if (!int_constants.containsKey(literal)) {
+            generate_int_constant(literal);
+        }
+        return int_constants.get(literal);
+    }
+
+    String get_or_generate_str(String literal) {
+        if (!str_constants.containsKey(literal)) {
+            generate_str_constant(literal);
+        }
+        return str_constants.get(literal);
+    }
+
+    String get_or_generate_bool(String literal) {
+        if (!bool_constants.containsKey(literal)) {
+            generate_bool_constant(literal);
+        }
+        return bool_constants.get(literal);
     }
 
     void generate_int_constant(Integer literal) {
