@@ -6,7 +6,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/cool/lexer/CoolLexer.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="src/cool/lexer" />
+          <option name="outputDir" value="$PROJECT_DIR$/src/cool/lexer" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />
@@ -16,7 +16,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/cool/parser/CoolParser.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="src/cool/parser" />
+          <option name="outputDir" value="$PROJECT_DIR$/src/cool/parser" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />

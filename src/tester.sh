@@ -14,7 +14,7 @@
 #	fi
 #done
 
-CLASSPATH=.:/mnt/d/Work/Facultate/An4/CPL/Tema3/antlr-4.9.2-complete.jar
+CLASSPATH=.:/mnt/d/Work/Facultate/An4/CPL/Tema3/antlr-4.9.2-complete.jar:/home/miruna/Desktop/CPL/Tema3/COOL_compiler/antlr-4.9.2-complete.jar
 
 passed=0
 for source_file in ./tests/tema3/*.cl; do
