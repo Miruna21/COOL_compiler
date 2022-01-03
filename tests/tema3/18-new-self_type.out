@@ -19,58 +19,58 @@ A_protObj:
     .word 1515
     .word 12
     .word A_disptable
-a
+a 12
 
 B_protObj:
     .word 1516
     .word 12
     .word B_disptable
-a
-b
+a 12
+b 16
 
 C_protObj:
     .word 1521
     .word 12
     .word C_disptable
-a
-c
+a 12
+c 16
 
 D_protObj:
     .word 1517
     .word 12
     .word D_disptable
-a
-b
+a 12
+b 16
 
 E_protObj:
     .word 1518
     .word 12
     .word E_disptable
-a
-b
+a 12
+b 16
 
 F_protObj:
     .word 1522
     .word 12
     .word F_disptable
-a
-c
+a 12
+c 16
 
 Main_protObj:
     .word 1519
     .word 12
     .word Main_disptable
-a
-b
-x
+a 12
+b 16
+x 20
 
 G_protObj:
     .word 1520
     .word 12
     .word G_disptable
-a
-b
-x
+a 12
+b 16
+x 20
 
 A_dispTab:
 Object.abort
