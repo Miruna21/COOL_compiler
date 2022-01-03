@@ -193,35 +193,6 @@ protObj(class, index, dim, disp_ptr, attributes) ::= <<
 <attributes>
 >>
 
-objPrototypes(other_prototypes) ::= <<
-Object_protObj:
-    .word 0
-    .word 3
-    .word Object_dispTab
-IO_protObj:
-    .word 1
-    .word 3
-    .word IO_dispTab
-Int_protObj:
-    .word 2
-    .word 4
-    .word Int_dispTab
-    .word 0
-String_protObj:
-    .word 3
-    .word 5
-    .word String_dispTab
-    .word int_const0
-    .asciiz ""
-    .align 2
-Bool_protObj:
-    .word 4
-    .word 4
-    .word Bool_dispTab
-    .word 0
-<other_prototypes>
->>
-
 dispTab(class, methods) ::= <<
 <class>_dispTab:
 <methods>

@@ -15,6 +15,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     static STGroupFile templates = new STGroupFile("cool/structures/cgen.stg");
     ST dataSection;
     ST textSection;
+    ST allObjects;
+    ST allTables;
 
     ST int_constants_st = templates.getInstanceOf("sequence");
     ST str_constants_st = templates.getInstanceOf("sequence");
@@ -53,8 +55,13 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     public ST visit(Program program) {
         dataSection = templates.getInstanceOf("sequenceSpaced");
         textSection = templates.getInstanceOf("sequenceSpaced");
+        allObjects = templates.getInstanceOf("sequenceSpaced");
+        allTables = templates.getInstanceOf("sequenceSpaced");
 
         initCodeSections();
+
+        dataSection = dataSection.add("e", allObjects);
+        dataSection = dataSection.add("e", allTables);
 
         for (ASTNode e : program.getClasses())
             textSection.add("e", e.accept(this));
@@ -68,9 +75,64 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         return programST;
     }
 
+    public ST createAttributes(ClassSymbol classSymbol) {
+        ST atrributes;
+        if (classSymbol.getParent() == SymbolTable.globals) {
+            atrributes = templates.getInstanceOf("sequence");
+        } else {
+            atrributes = createAttributes((ClassSymbol) classSymbol.getParent());
+        }
+
+        for (IdSymbol attr : classSymbol.attributes.values()) {
+            if (attr.name.equals("self")) {
+                continue;
+            }
+//            TypeSymbol type = attr.getType();
+            atrributes.add("e", attr.name);
+            // aici am nevoie de miru's map
+        }
+
+        return atrributes;
+    }
+
+    public ST createClassST(ClassSymbol classSymbol) {
+        ST attributes = createAttributes(classSymbol);
+        ST classProt =  templates.getInstanceOf("protObj");
+
+        classProt.add("class", classSymbol.name).add("index", classSymbol.classIndex).add("dim", 12)
+                .add("disp_ptr", classSymbol.name + "_disptable").add("attributes", attributes);
+
+        return classProt;
+    }
+
+    public ST createMethods(ClassSymbol classSymbol) {
+        ST methods;
+
+        if (classSymbol.getParent() == SymbolTable.globals) {
+            methods = templates.getInstanceOf("sequence");
+        } else {
+            methods = createMethods((ClassSymbol) classSymbol.getParent());
+        }
+
+        for (MethodSymbol method : classSymbol.methods.values()) {
+            String methodName = method.getName();
+            methods.add("e", classSymbol.name + "." + methodName);
+        }
+
+        return methods;
+    }
+
     @Override
     public ST visit(Class_ class_) {
         ClassSymbol currentClass = (ClassSymbol) class_.getType().getSymbol();
+        allObjects.add("e", createClassST(currentClass));
+
+        ST methods = createMethods(currentClass);
+
+        ST dispTable = templates.getInstanceOf("dispTab");
+        dispTable.add("class", currentClass.name).add("methods", methods);
+
+        allTables.add("e", dispTable);
 
         return null;
     }

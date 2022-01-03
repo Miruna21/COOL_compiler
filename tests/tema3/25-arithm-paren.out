@@ -15,6 +15,141 @@ _string_tag:
     .word 3
 _bool_tag:
     .word 4
+A_protObj:
+    .word 3315
+    .word 12
+    .word A_disptable
+a
+
+B_protObj:
+    .word 3316
+    .word 12
+    .word B_disptable
+a
+b
+
+C_protObj:
+    .word 3320
+    .word 12
+    .word C_disptable
+a
+c
+
+D_protObj:
+    .word 3317
+    .word 12
+    .word D_disptable
+a
+b
+
+E_protObj:
+    .word 3318
+    .word 12
+    .word E_disptable
+a
+b
+
+F_protObj:
+    .word 3321
+    .word 12
+    .word F_disptable
+a
+c
+
+Main_protObj:
+    .word 3319
+    .word 12
+    .word Main_disptable
+a
+b
+x
+
+A_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+IO.out_string
+IO.out_int
+IO.in_string
+IO.in_int
+A.f
+
+B_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+IO.out_string
+IO.out_int
+IO.in_string
+IO.in_int
+A.f
+B.g
+
+C_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+IO.out_string
+IO.out_int
+IO.in_string
+IO.in_int
+A.f
+C.f
+C.h
+
+D_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+IO.out_string
+IO.out_int
+IO.in_string
+IO.in_int
+A.f
+B.g
+
+E_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+IO.out_string
+IO.out_int
+IO.in_string
+IO.in_int
+A.f
+B.g
+
+F_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+IO.out_string
+IO.out_int
+IO.in_string
+IO.in_int
+A.f
+C.f
+C.h
+
+Main_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+IO.out_string
+IO.out_int
+IO.in_string
+IO.in_int
+A.f
+B.g
+Main.out_string
+Main.out_int
+Main.main
+
+
+
+
+
+
 
     .globl heap_start
 heap_start:

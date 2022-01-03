@@ -15,6 +15,64 @@ _string_tag:
     .word 3
 _bool_tag:
     .word 4
+List_protObj:
+    .word 5645
+    .word 12
+    .word List_disptable
+elem
+next
+
+Main_protObj:
+    .word 5646
+    .word 12
+    .word Main_disptable
+
+
+A2I_protObj:
+    .word 5650
+    .word 12
+    .word A2I_disptable
+
+
+List_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+IO.out_string
+IO.out_int
+IO.in_string
+IO.in_int
+List.init
+List.print
+
+Main_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+IO.out_string
+IO.out_int
+IO.in_string
+IO.in_int
+Main.main
+Main.fact_rec
+Main.fact_iter
+
+A2I_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+A2I.c2i
+A2I.i2c
+A2I.a2i
+A2I.a2i_aux
+A2I.i2a
+A2I.i2a_aux
+
+
+
+
+
+
 
     .globl heap_start
 heap_start:
