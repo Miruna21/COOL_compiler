@@ -16,12 +16,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     Integer classIndex = 0;
 
-    private void generateGlobalVariablesDefinitions() {
-
-    }
-
     private void dfs(ClassSymbol node) {
-        for (var child : node.getChildren()) {
+        for (ClassSymbol child : node.getChildren()) {
             child.setClassIndex(classIndex);
             classIndex++;
             dfs(child);
@@ -34,20 +30,10 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
         classIndex++;
         dfs(root);
-
-
-    }
-
-    private void generateGlobalMethodsDefinitions() {
-
     }
 
     private void initCodeSections() {
-        generateGlobalVariablesDefinitions();
-
         generateClassesRepresentations();
-
-        generateGlobalMethodsDefinitions();
     }
 
     @Override
@@ -69,6 +55,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Class_ class_) {
+        ClassSymbol currentClass = (ClassSymbol) class_.getType().getSymbol();
+
         return null;
     }
 
