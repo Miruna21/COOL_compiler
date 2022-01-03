@@ -54,6 +54,14 @@ int_const<index>:
     .word <value>
 >>
 
+bool_const(index, value) ::= <<
+bool_const<index>:
+    .word 4
+    .word 4
+    .word Bool_dispTab
+    .word <value>
+>>
+
 str_constants(other_consts) ::= <<
 str_const0:
     .word 3
@@ -345,6 +353,10 @@ methodDef(class, method, body, offset) ::= <<
     lw $ra 4($sp)
     addiu $sp $sp <offset>  # 12 + 4 * nr_params
     jr $ra
+>>
+
+literal(value) ::= <<
+	la $a0 <value>
 >>
 
 arg(e) ::= <<
