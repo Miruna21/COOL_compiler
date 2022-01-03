@@ -15,6 +15,105 @@ _string_tag:
     .word 3
 _bool_tag:
     .word 4
+A_protObj:
+    .word 71
+    .word 12
+    .word A_disptable
+a
+
+B_protObj:
+    .word 72
+    .word 12
+    .word B_disptable
+a
+b
+
+C_protObj:
+    .word 76
+    .word 12
+    .word C_disptable
+a
+c
+
+D_protObj:
+    .word 73
+    .word 12
+    .word D_disptable
+a
+b
+
+E_protObj:
+    .word 74
+    .word 12
+    .word E_disptable
+a
+b
+
+F_protObj:
+    .word 77
+    .word 12
+    .word F_disptable
+a
+c
+
+Main_protObj:
+    .word 75
+    .word 12
+    .word Main_disptable
+a
+b
+x
+
+A_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+A.f
+
+B_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+A.f
+B.g
+
+C_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+A.f
+C.f
+C.h
+
+D_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+A.f
+B.g
+
+E_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+A.f
+B.g
+
+F_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+A.f
+C.f
+C.h
+
+Main_dispTab:
+Object.abort
+Object.type_name
+Object.copy
+A.f
+B.g
+Main.main
 
     .globl heap_start
 heap_start:
