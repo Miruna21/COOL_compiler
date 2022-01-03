@@ -19,8 +19,8 @@ List_protObj:
     .word 5645
     .word 12
     .word List_disptable
-elem 12
-next 16
+    .word 0
+    .word 0
 
 Main_protObj:
     .word 5646
@@ -35,38 +35,38 @@ A2I_protObj:
 
 
 List_dispTab:
-Object.abort
-Object.type_name
-Object.copy
-IO.out_string
-IO.out_int
-IO.in_string
-IO.in_int
-List.init
-List.print
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word IO.out_string
+    .word IO.out_int
+    .word IO.in_string
+    .word IO.in_int
+    .word List.init
+    .word List.print
 
 Main_dispTab:
-Object.abort
-Object.type_name
-Object.copy
-IO.out_string
-IO.out_int
-IO.in_string
-IO.in_int
-Main.main
-Main.fact_rec
-Main.fact_iter
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word IO.out_string
+    .word IO.out_int
+    .word IO.in_string
+    .word IO.in_int
+    .word Main.main
+    .word Main.fact_rec
+    .word Main.fact_iter
 
 A2I_dispTab:
-Object.abort
-Object.type_name
-Object.copy
-A2I.c2i
-A2I.i2c
-A2I.a2i
-A2I.a2i_aux
-A2I.i2a
-A2I.i2a_aux
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word A2I.c2i
+    .word A2I.i2c
+    .word A2I.a2i
+    .word A2I.a2i_aux
+    .word A2I.i2a
+    .word A2I.i2a_aux
 
 
 

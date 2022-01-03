@@ -19,135 +19,145 @@ A_protObj:
     .word 202
     .word 12
     .word A_disptable
-a 12
+    .word int_const0
 
 B_protObj:
     .word 203
     .word 12
     .word B_disptable
-a 12
-b 16
+    .word int_const0
+    .word str_const0
 
 C_protObj:
     .word 207
     .word 12
     .word C_disptable
-a 12
-c 16
+    .word int_const0
+    .word bool_const0
 
 D_protObj:
     .word 204
     .word 12
     .word D_disptable
-a 12
-b 16
+    .word int_const0
+    .word str_const0
 
 E_protObj:
     .word 205
     .word 12
     .word E_disptable
-a 12
-b 16
+    .word int_const0
+    .word str_const0
 
 F_protObj:
     .word 208
     .word 12
     .word F_disptable
-a 12
-c 16
+    .word int_const0
+    .word bool_const0
 
 Main_protObj:
     .word 206
     .word 12
     .word Main_disptable
-a 12
-b 16
-x 20
+    .word int_const0
+    .word str_const0
+    .word 0
 
 A_dispTab:
-Object.abort
-Object.type_name
-Object.copy
-IO.out_string
-IO.out_int
-IO.in_string
-IO.in_int
-A.f
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word IO.out_string
+    .word IO.out_int
+    .word IO.in_string
+    .word IO.in_int
+    .word A.f
 
 B_dispTab:
-Object.abort
-Object.type_name
-Object.copy
-IO.out_string
-IO.out_int
-IO.in_string
-IO.in_int
-A.f
-B.g
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word IO.out_string
+    .word IO.out_int
+    .word IO.in_string
+    .word IO.in_int
+    .word A.f
+    .word B.g
 
 C_dispTab:
-Object.abort
-Object.type_name
-Object.copy
-IO.out_string
-IO.out_int
-IO.in_string
-IO.in_int
-A.f
-C.f
-C.h
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word IO.out_string
+    .word IO.out_int
+    .word IO.in_string
+    .word IO.in_int
+    .word A.f
+    .word C.f
+    .word C.h
 
 D_dispTab:
-Object.abort
-Object.type_name
-Object.copy
-IO.out_string
-IO.out_int
-IO.in_string
-IO.in_int
-A.f
-B.g
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word IO.out_string
+    .word IO.out_int
+    .word IO.in_string
+    .word IO.in_int
+    .word A.f
+    .word B.g
 
 E_dispTab:
-Object.abort
-Object.type_name
-Object.copy
-IO.out_string
-IO.out_int
-IO.in_string
-IO.in_int
-A.f
-B.g
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word IO.out_string
+    .word IO.out_int
+    .word IO.in_string
+    .word IO.in_int
+    .word A.f
+    .word B.g
 
 F_dispTab:
-Object.abort
-Object.type_name
-Object.copy
-IO.out_string
-IO.out_int
-IO.in_string
-IO.in_int
-A.f
-C.f
-C.h
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word IO.out_string
+    .word IO.out_int
+    .word IO.in_string
+    .word IO.in_int
+    .word A.f
+    .word C.f
+    .word C.h
 
 Main_dispTab:
-Object.abort
-Object.type_name
-Object.copy
-IO.out_string
-IO.out_int
-IO.in_string
-IO.in_int
-A.f
-B.g
-Main.main
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word IO.out_string
+    .word IO.out_int
+    .word IO.in_string
+    .word IO.in_int
+    .word A.f
+    .word B.g
+    .word Main.main
 
+str_const1:
+    .word 3
+    .word 4
+    .word String_dispTab
+    .word int_const0
+    .asciiz 
+    .align 2
 
+int_const1:
+    .word 2
+    .word 4
+    .word Int_dispTab
+    .word 0
 
-
-
-
+False
 
     .globl heap_start
 heap_start:

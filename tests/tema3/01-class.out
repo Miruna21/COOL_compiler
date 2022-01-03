@@ -58,40 +58,40 @@ Main_protObj:
 
 
 A_dispTab:
-Object.abort
-Object.type_name
-Object.copy
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
 
 B_dispTab:
-Object.abort
-Object.type_name
-Object.copy
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
 
 C_dispTab:
-Object.abort
-Object.type_name
-Object.copy
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
 
 D_dispTab:
-Object.abort
-Object.type_name
-Object.copy
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
 
 E_dispTab:
-Object.abort
-Object.type_name
-Object.copy
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
 
 F_dispTab:
-Object.abort
-Object.type_name
-Object.copy
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
 
 Main_dispTab:
-Object.abort
-Object.type_name
-Object.copy
-Main.main
+    .word Object.abort
+    .word Object.type_name
+    .word Object.copy
+    .word Main.main
 
 
 
