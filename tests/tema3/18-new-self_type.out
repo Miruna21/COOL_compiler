@@ -167,6 +167,12 @@ Main.getA
 Main.i
 Main.main
 
+
+
+
+
+
+
     .globl heap_start
 heap_start:
     .word 0

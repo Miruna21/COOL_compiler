@@ -115,6 +115,12 @@ A.f
 B.g
 Main.main
 
+
+
+
+
+
+
     .globl heap_start
 heap_start:
     .word 0

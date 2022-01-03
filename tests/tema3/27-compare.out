@@ -145,6 +145,12 @@ Main.out_string
 Main.out_int
 Main.main
 
+
+
+
+
+
+
     .globl heap_start
 heap_start:
     .word 0

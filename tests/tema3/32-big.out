@@ -68,6 +68,12 @@ A2I.a2i_aux
 A2I.i2a
 A2I.i2a_aux
 
+
+
+
+
+
+
     .globl heap_start
 heap_start:
     .word 0

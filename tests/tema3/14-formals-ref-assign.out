@@ -144,6 +144,12 @@ B.g
 Main.main
 Main.charAt
 
+
+
+
+
+
+
     .globl heap_start
 heap_start:
     .word 0
