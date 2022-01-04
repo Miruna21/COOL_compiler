@@ -13,6 +13,7 @@ public class ClassSymbol extends TypeSymbol {
     protected String parentName;
     protected List<ClassSymbol> children;
     protected Integer classIndex;
+    protected Integer total_attributes = 0;
 
     public static final ClassSymbol OBJECT  = new ClassSymbol("","Object");
     public static final ClassSymbol INT   = new ClassSymbol("Object","Int");
@@ -109,6 +110,22 @@ public class ClassSymbol extends TypeSymbol {
 
     public void setClassIndex(Integer classIndex) {
         this.classIndex = classIndex;
+    }
+
+    public Integer getTotal_attributes() {
+        return total_attributes;
+    }
+
+    public void setTotal_attributes(Integer total_attributes) {
+        this.total_attributes = total_attributes;
+    }
+
+    public Map<String, IdSymbol> getAttributes() {
+        return attributes;
+    }
+
+    public Map<String, MethodSymbol> getMethods() {
+        return methods;
     }
 
     @Override
