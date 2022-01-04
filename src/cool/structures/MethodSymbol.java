@@ -7,6 +7,7 @@ public class MethodSymbol extends Symbol implements Scope {
     protected Map<String, IdSymbol> formals = new LinkedHashMap<>();
     protected TypeSymbol returnType;
     protected Scope parent;
+    protected int methodOffset;
 
     public MethodSymbol(Scope parent, String name) {
         super(name);
@@ -62,5 +63,13 @@ public class MethodSymbol extends Symbol implements Scope {
     @Override
     public Scope getParent() {
         return parent;
+    }
+
+    public int getMethodOffset() {
+        return methodOffset;
+    }
+
+    public void setMethodOffset(int methodOffset) {
+        this.methodOffset = methodOffset;
     }
 }

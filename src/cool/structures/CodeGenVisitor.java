@@ -16,11 +16,12 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     ST dataSection;
     ST textSection;
     ST allObjects;
-    ST allTables;
+    ST allDispTables;
 
-    ST int_constants_st = templates.getInstanceOf("sequence");
-    ST str_constants_st = templates.getInstanceOf("sequence");
-    ST bool_constants_st = templates.getInstanceOf("sequence");
+    ST intConstants;
+    ST strConstants;
+    ST boolConstants;
+    ST initMethods;
 
     Map<Integer, String> int_constants = new LinkedHashMap<>();
     Map<String, String> str_constants = new LinkedHashMap<>();
@@ -34,14 +35,25 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     int PROTOTYPE_LENGTH = 12;
 
     private void dfs(ClassSymbol node, int offset) {
-        for (IdSymbol attr : node.attributes.values()) {
-            if (attr.name.equals("self")) {
+        for (IdSymbol attr : node.getAttributes().values()) {
+            if (attr.getName().equals("self")) {
                 continue;
             }
             TypeSymbol type = attr.getType();
             type.setOffset(offset + PROTOTYPE_LENGTH);
             offset += 4;
+            attr.setOffset(offset);
         }
+
+        // reprezentarea claselor si a tabelurilor de metode
+        allObjects.add("e", createClassST(node));
+
+        ST methods = createMethods(node);
+
+        ST dispTable = templates.getInstanceOf("dispTab");
+        dispTable.add("class", node.getName()).add("methods", methods);
+
+        allDispTables.add("e", dispTable);
 
         for (ClassSymbol child : node.getChildren()) {
             child.setClassIndex(classIndex);
@@ -58,26 +70,68 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         dfs(root, 0);
     }
 
+    private ST generateBaseInitMethod(ClassSymbol classSymbol) {
+        ST init_method = templates.getInstanceOf("initMethod");
+
+        if (classSymbol == ClassSymbol.OBJECT)
+            init_method.add("class", classSymbol.getName());
+        else {
+            ClassSymbol parent = (ClassSymbol) classSymbol.getParent();
+            init_method.add("class", classSymbol.getName()).add("parent_init_method", parent.getName() + "_init");
+        }
+
+        return init_method;
+    }
+
+    private void generateBaseInitMethods() {
+        initMethods.add("e", generateBaseInitMethod(ClassSymbol.OBJECT))
+                .add("e", generateBaseInitMethod(ClassSymbol.IO))
+                .add("e", generateBaseInitMethod(ClassSymbol.INT))
+                .add("e", generateBaseInitMethod(ClassSymbol.STRING))
+                .add("e", generateBaseInitMethod(ClassSymbol.BOOL));
+    }
+
+    private void generateDefaultConstants() {
+        get_or_generate_str("");
+        get_or_generate_int(0);
+        get_or_generate_bool("false");
+        get_or_generate_bool("true");
+
+        get_or_generate_str("Object");
+        get_or_generate_str("IO");
+        get_or_generate_str("Int");
+        get_or_generate_str("String");
+        get_or_generate_str("Bool");
+    }
+
     private void initCodeSections() {
+        allObjects = templates.getInstanceOf("sequence");
+        allDispTables = templates.getInstanceOf("sequence");
+
+        intConstants = templates.getInstanceOf("sequence");
+        strConstants = templates.getInstanceOf("sequence");
+        boolConstants = templates.getInstanceOf("sequence");
+
+        initMethods = templates.getInstanceOf("sequence");
+
         generateClassesRepresentations();
+        generateDefaultConstants();
+        generateBaseInitMethods();
     }
 
     @Override
     public ST visit(Program program) {
         dataSection = templates.getInstanceOf("sequenceSpaced");
         textSection = templates.getInstanceOf("sequenceSpaced");
-        allObjects = templates.getInstanceOf("sequenceSpaced");
-        allTables = templates.getInstanceOf("sequenceSpaced");
-
         initCodeSections();
-
-        dataSection = dataSection.add("e", allObjects);
-        dataSection = dataSection.add("e", allTables);
 
         for (ASTNode e : program.getClasses())
             textSection.add("e", e.accept(this));
 
-        dataSection.add("e", str_constants_st).add("e", int_constants_st).add("e", bool_constants);
+        dataSection.add("e", allObjects);
+        dataSection.add("e", allDispTables);
+        dataSection.add("e", strConstants).add("e", intConstants).add("e", boolConstants);
+        textSection.add("e", initMethods);
 
         var programST = templates.getInstanceOf("program");
         programST.add("data", dataSection);
@@ -87,15 +141,15 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     }
 
     public ST createAttributes(ClassSymbol classSymbol) {
-        ST atrributes;
+        ST attributes;
         if (classSymbol.getParent() == SymbolTable.globals) {
-            atrributes = templates.getInstanceOf("sequence");
+            attributes = templates.getInstanceOf("sequence");
         } else {
-            atrributes = createAttributes((ClassSymbol) classSymbol.getParent());
+            attributes = createAttributes((ClassSymbol) classSymbol.getParent());
         }
 
-        for (IdSymbol attr : classSymbol.attributes.values()) {
-            if (attr.name.equals("self")) {
+        for (IdSymbol attr : classSymbol.getAttributes().values()) {
+            if (attr.getName().equals("self")) {
                 continue;
             }
             TypeSymbol type = attr.getType();
@@ -108,23 +162,39 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
             } else if (type == ClassSymbol.STRING) {
                 value = get_or_generate_str("");
             } else if (type == ClassSymbol.BOOL) {
-                value = get_or_generate_bool("False");
+                value = get_or_generate_bool("false");
             } else {
                 value = "0";
             }
             attrST.add("value", value);
-            atrributes.add("e", attrST);
+            attributes.add("e", attrST);
         }
 
-        return atrributes;
+        return attributes;
     }
 
     public ST createClassST(ClassSymbol classSymbol) {
         ST attributes = createAttributes(classSymbol);
         ST classProt =  templates.getInstanceOf("protObj");
+        int dim = 3 + classSymbol.getTotal_attributes();
 
-        classProt.add("class", classSymbol.name).add("index", classSymbol.classIndex).add("dim", 12)
-                .add("disp_ptr", classSymbol.name + "_disptable").add("attributes", attributes);
+        classProt.add("class", classSymbol.getName()).add("index", classSymbol.getClassIndex())
+                .add("disp_ptr", classSymbol.getName() + "_dispTab");
+
+        // atribute fictive pentru clasele predefinite
+        if (classSymbol.getTotal_attributes() != 0) {
+            classProt.add("attributes", attributes).add("dim", dim);
+        } else if (classSymbol == ClassSymbol.INT || classSymbol == ClassSymbol.BOOL) {
+            ST pseudoAttribute = templates.getInstanceOf("word");
+            pseudoAttribute.add("value", 0);
+            classProt.add("attributes", pseudoAttribute).add("dim", dim + 1);
+        } else if (classSymbol == ClassSymbol.STRING) {
+            ST pseudoAttribute = templates.getInstanceOf("str_attribute");
+            pseudoAttribute.add("len", get_or_generate_int(0)).add("str", "\"\"");
+            classProt.add("attributes", pseudoAttribute).add("dim", dim + 2);
+        } else {
+            classProt.add("dim", dim);
+        }
 
         return classProt;
     }
@@ -137,10 +207,10 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
             methods = createMethods((ClassSymbol) classSymbol.getParent());
         }
 
-        for (MethodSymbol method : classSymbol.methods.values()) {
+        for (MethodSymbol method : classSymbol.getMethods().values()) {
             String methodName = method.getName();
             ST methodST = templates.getInstanceOf("word");
-            methodST.add("value", classSymbol.name + "." + methodName);
+            methodST.add("value", classSymbol.getName() + "." + methodName);
             methods.add("e", methodST);
         }
 
@@ -150,29 +220,42 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     @Override
     public ST visit(Class_ class_) {
         ClassSymbol currentClass = (ClassSymbol) class_.getType().getSymbol();
-        allObjects.add("e", createClassST(currentClass));
+        String name = currentClass.getName();
 
-        ST methods = createMethods(currentClass);
+        generate_str_constant(name);
 
-        ST dispTable = templates.getInstanceOf("dispTab");
-        dispTable.add("class", currentClass.name).add("methods", methods);
+        ST attributesST = templates.getInstanceOf("sequence");
+        ST methodsST = templates.getInstanceOf("sequence");
+        ST init_method = templates.getInstanceOf("initMethod");
 
-        allTables.add("e", dispTable);
+        ClassSymbol parent = (ClassSymbol) currentClass.getParent();
+        init_method.add("class", name).add("parent_init_method", parent.getName() + "_init");
 
-        return null;
+        for (var feature : class_.getFeatures())
+            if (feature instanceof Attribute)
+                attributesST.add("e", feature.accept(this));
+            else
+                methodsST.add("e", feature.accept(this));
+
+        if (currentClass.getAttributes().size() > 1)  // si self e atribut, teoretic
+            init_method.add("attr_init_exprs", attributesST);
+
+        initMethods.add("e", init_method);
+
+        return methodsST;
     }
 
     @Override
     public ST visit(Attribute attribute) {
+        ST st = null;
+        if (attribute.getInit() != null)
+            st = attribute.getInit().accept(this);
 
-        attribute.getName().accept(this);
-        attribute.getInit().accept(this);
-        return null;
+        return st;
     }
 
     @Override
     public ST visit(Method method) {
-
         method.getName().accept(this);
         method.getBody().accept(this);
         return null;
@@ -225,31 +308,31 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     }
 
     void generate_int_constant(Integer literal) {
-        int_constants.put(literal, "int_const" + int_literal_index++);
+        int_constants.put(literal, "int_const" + int_literal_index);
 
         ST st = templates.getInstanceOf("int_const");
-        st.add("index", int_literal_index).add("value", literal);
+        st.add("index", int_literal_index).add("class_index", ClassSymbol.INT.getClassIndex()).add("value", literal);
 
         int_literal_index++;
-        int_constants_st.add("e", st);
+        intConstants.add("e", st);
     }
 
     void generate_str_constant(String literal) {
-        str_constants.put(literal, "str_const" + str_literal_index++);
+        str_constants.put(literal, "str_const" + str_literal_index);
 
         ST st = templates.getInstanceOf("str_const");
         int len = literal.length();
-        int dim = (int) (3 + Math.ceil((len + 1)/ 4.0f));
+        int dim = (int) (4 + Math.ceil((len + 1)/ 4.0f));
 
         if (!int_constants.containsKey(len))
             generate_int_constant(len);
 
         String len_constant = int_constants.get(len);
-        st.add("index", str_literal_index).add("dim", dim).add("len_obj", len_constant)
-                .add("str", literal);
+        st.add("index", str_literal_index).add("class_index", ClassSymbol.STRING.getClassIndex())
+                .add("dim", dim).add("len_obj", len_constant).add("str", "\"" + literal + "\"");
 
         str_literal_index++;
-        str_constants_st.add("e", st);
+        strConstants.add("e", st);
     }
 
     void generate_bool_constant(String literal) {
@@ -261,20 +344,17 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
             value = 1;
 
         ST st = templates.getInstanceOf("bool_const");
-        st.add("index", bool_literal_index).add("value", value);
+        st.add("index", bool_literal_index).add("class_index", ClassSymbol.BOOL.getClassIndex()).add("value", value);
         bool_literal_index++;
 
-        bool_constants_st.add("e", st);
+        boolConstants.add("e", st);
     }
 
     @Override
     public ST visit(Int int_) {
         Integer literal = Integer.parseInt(int_.getToken().getText());
 
-        if (!int_constants.containsKey(literal))
-            generate_int_constant(literal);
-
-        String int_constant = int_constants.get(literal);
+        String int_constant = get_or_generate_int(literal);
         ST st = templates.getInstanceOf("literal");
         st.add("value", int_constant);
 
@@ -285,10 +365,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     public ST visit(String_ string) {
         String literal = string.getToken().getText();
 
-        if (!str_constants.containsKey(literal))
-            generate_str_constant(literal);
-
-        String str_constant = str_constants.get(literal);
+        String str_constant = get_or_generate_str(literal);
         ST st = templates.getInstanceOf("literal");
         st.add("value", str_constant);
 
@@ -299,10 +376,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     public ST visit(Bool bool) {
         String literal = bool.getToken().getText();
 
-        if (!bool_constants.containsKey(literal))
-            generate_bool_constant(literal);
-
-        String bool_constant = bool_constants.get(literal);
+        String bool_constant = get_or_generate_bool(literal);
         ST st = templates.getInstanceOf("literal");
         st.add("value", bool_constant);
 

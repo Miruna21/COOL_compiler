@@ -3,8 +3,43 @@
   <component name="ChangeListManager">
     <list default="true" id="9fc68792-4f33-4dfb-96d1-c139d5890f29" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cool/structures/ClassSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cool/structures/ClassSymbol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cool/structures/CodeGenVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cool/structures/CodeGenVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cool/structures/IdSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cool/structures/IdSymbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cool/structures/MethodSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cool/structures/MethodSymbol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cool/structures/cgen.stg" beforeDir="false" afterPath="$PROJECT_DIR$/src/cool/structures/cgen.stg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/01-class.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/01-class.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/02-attr-no-init.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/02-attr-no-init.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/03-attr-init.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/03-attr-init.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/04-method-def.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/04-method-def.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/05-dispatch-explicit-abort.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/05-dispatch-explicit-abort.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/06-dispatch-implicit-abort.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/06-dispatch-implicit-abort.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/07-dispatch-on-void-abort.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/07-dispatch-on-void-abort.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/08-dispatch-block-IO.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/08-dispatch-block-IO.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/09-dispatch-chain-IO.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/09-dispatch-chain-IO.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/10-dispatch-Object.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/10-dispatch-Object.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/11-dispatch-String.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/11-dispatch-String.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/12-attr-no-init-ref.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/12-attr-no-init-ref.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/13-attr-init-ref-assign.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/13-attr-init-ref-assign.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/14-formals-ref-assign.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/14-formals-ref-assign.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/15-let-no-init-ref.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/15-let-no-init-ref.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/16-let-init-ref-assign.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/16-let-init-ref-assign.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/17-new-class-name.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/17-new-class-name.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/18-new-self_type.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/18-new-self_type.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/19-dynamic-dispatch.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/19-dynamic-dispatch.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/20-static-dispatch.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/20-static-dispatch.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/21-if.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/21-if.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/22-isvoid.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/22-isvoid.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/23-not.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/23-not.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/24-arithm-plus.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/24-arithm-plus.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/25-arithm-paren.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/25-arithm-paren.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/26-equality.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/26-equality.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/27-compare.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/27-compare.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/28-while.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/28-while.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/29-case.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/29-case.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/30-case-on-void.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/30-case-on-void.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/31-case-unmatched.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/31-case-unmatched.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/tema3/32-big.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/32-big.out" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
