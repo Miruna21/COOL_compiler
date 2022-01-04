@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9fc68792-4f33-4dfb-96d1-c139d5890f29" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cool/structures/ClassSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cool/structures/ClassSymbol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cool/structures/CodeGenVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cool/structures/CodeGenVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cool/structures/IdSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cool/structures/IdSymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cool/structures/MethodSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cool/structures/MethodSymbol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cool/structures/cgen.stg" beforeDir="false" afterPath="$PROJECT_DIR$/src/cool/structures/cgen.stg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/tema3/01-class.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/01-class.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/tema3/02-attr-no-init.out" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tema3/02-attr-no-init.out" afterDir="false" />
@@ -131,6 +128,7 @@
       <workItem from="1637871005282" duration="10000" />
       <workItem from="1641213908424" duration="364000" />
       <workItem from="1641214281994" duration="10883000" />
+      <workItem from="1641298312858" duration="2798000" />
     </task>
     <servers />
   </component>

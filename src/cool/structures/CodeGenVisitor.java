@@ -17,6 +17,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     ST textSection;
     ST allObjects;
     ST allDispTables;
+    ST nameTable;
+    ST objTable;
 
     ST intConstants;
     ST strConstants;
@@ -54,6 +56,19 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         dispTable.add("class", node.getName()).add("methods", methods);
 
         allDispTables.add("e", dispTable);
+
+        ST nameST = templates.getInstanceOf("word");
+        nameST.add("value", get_or_generate_str(node.getName()));
+        nameTable.add("name_constant", nameST);
+
+        ST prot_initST = templates.getInstanceOf("sequence");
+        ST protST = templates.getInstanceOf("word");
+        protST.add("value", node.getName() + "_protObj");
+        ST initST = templates.getInstanceOf("word");
+        initST.add("value", node.getName() + "_init");
+
+        prot_initST.add("e", protST).add("e", initST);
+        objTable.add("prot_init", prot_initST);
 
         for (ClassSymbol child : node.getChildren()) {
             child.setClassIndex(classIndex);
@@ -96,17 +111,13 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         get_or_generate_int(0);
         get_or_generate_bool("false");
         get_or_generate_bool("true");
-
-        get_or_generate_str("Object");
-        get_or_generate_str("IO");
-        get_or_generate_str("Int");
-        get_or_generate_str("String");
-        get_or_generate_str("Bool");
     }
 
     private void initCodeSections() {
         allObjects = templates.getInstanceOf("sequence");
         allDispTables = templates.getInstanceOf("sequence");
+        nameTable = templates.getInstanceOf("nameTab");
+        objTable = templates.getInstanceOf("objTab");
 
         intConstants = templates.getInstanceOf("sequence");
         strConstants = templates.getInstanceOf("sequence");
@@ -114,8 +125,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
         initMethods = templates.getInstanceOf("sequence");
 
-        generateClassesRepresentations();
         generateDefaultConstants();
+        generateClassesRepresentations();
         generateBaseInitMethods();
     }
 
@@ -131,6 +142,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         dataSection.add("e", allObjects);
         dataSection.add("e", allDispTables);
         dataSection.add("e", strConstants).add("e", intConstants).add("e", boolConstants);
+        dataSection.add("e", nameTable);
+        dataSection.add("e", objTable);
         textSection.add("e", initMethods);
 
         var programST = templates.getInstanceOf("program");
@@ -222,8 +235,6 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         ClassSymbol currentClass = (ClassSymbol) class_.getType().getSymbol();
         String name = currentClass.getName();
 
-        generate_str_constant(name);
-
         ST attributesST = templates.getInstanceOf("sequence");
         ST methodsST = templates.getInstanceOf("sequence");
         ST init_method = templates.getInstanceOf("initMethod");
@@ -311,7 +322,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         int_constants.put(literal, "int_const" + int_literal_index);
 
         ST st = templates.getInstanceOf("int_const");
-        st.add("index", int_literal_index).add("class_index", ClassSymbol.INT.getClassIndex()).add("value", literal);
+        st.add("index", int_literal_index).add("class_index", 2).add("value", literal);
 
         int_literal_index++;
         intConstants.add("e", st);
@@ -328,7 +339,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
             generate_int_constant(len);
 
         String len_constant = int_constants.get(len);
-        st.add("index", str_literal_index).add("class_index", ClassSymbol.STRING.getClassIndex())
+        st.add("index", str_literal_index).add("class_index", 3)
                 .add("dim", dim).add("len_obj", len_constant).add("str", "\"" + literal + "\"");
 
         str_literal_index++;
@@ -344,7 +355,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
             value = 1;
 
         ST st = templates.getInstanceOf("bool_const");
-        st.add("index", bool_literal_index).add("class_index", ClassSymbol.BOOL.getClassIndex()).add("value", value);
+        st.add("index", bool_literal_index).add("class_index", 4).add("value", value);
         bool_literal_index++;
 
         boolConstants.add("e", st);

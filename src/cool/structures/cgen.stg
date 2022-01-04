@@ -6,102 +6,87 @@ program(data, text) ::= <<
 <dataGlobals()>
 <data>
 
-    .globl heap_start
+    .globl  heap_start
 heap_start:
-    .word 0
+    .word   0
 
     .text
 <textGlobals()>
 <text>
-	li $v0, 10
+	li  $v0, 10
 	syscall		#exit
 >>
 
 dataGlobals() ::= <<
-    .align 2
-    .globl class_nameTab
-    .globl Int_protObj
-    .globl String_protObj
-    .globl bool_const0
-    .globl bool_const1
-    .globl Main_protObj
-    .globl _int_tag
-    .globl _string_tag
-    .globl _bool_tag
+    .align  2
+    .globl  class_nameTab
+    .globl  Int_protObj
+    .globl  String_protObj
+    .globl  bool_const0
+    .globl  bool_const1
+    .globl  Main_protObj
+    .globl  _int_tag
+    .globl  _string_tag
+    .globl  _bool_tag
 _int_tag:
-    .word 2
+    .word   2
 _string_tag:
-    .word 3
+    .word   3
 _bool_tag:
-    .word 4
+    .word   4
 >>
 
 str_const(index, class_index, dim, len_obj, str) ::= <<
 str_const<index>:
-    .word <class_index>
-    .word <dim>
-    .word String_dispTab
-    .word <len_obj>
+    .word   <class_index>
+    .word   <dim>
+    .word   String_dispTab
+    .word   <len_obj>
     .asciiz <str>
-    .align 2
+    .align  2
 >>
 
 int_const(index, class_index, value) ::= <<
 int_const<index>:
-    .word <class_index>
-    .word 4
-    .word Int_dispTab
-    .word <value>
+    .word   <class_index>
+    .word   4
+    .word   Int_dispTab
+    .word   <value>
 >>
 
 bool_const(index, class_index, value) ::= <<
 bool_const<index>:
-    .word <class_index>
-    .word 4
-    .word Bool_dispTab
-    .word <value>
+    .word   <class_index>
+    .word   4
+    .word   Bool_dispTab
+    .word   <value>
 >>
 
-nameTab(other_names) ::= <<
+nameTab(name_constant) ::= <<
 class_nameTab:
-    .word str_const1
-    .word str_const2
-    .word str_const3
-    .word str_const4
-    .word str_const5
-<other_names>
+<name_constant; separator="\n">
 >>
 
-objTab(other_prot_init) ::= <<
+objTab(prot_init) ::= <<
 class_objTab:
-    .word Object_protObj
-    .word Object_init
-    .word IO_protObj
-    .word IO_init
-    .word Int_protObj
-    .word Int_init
-    .word String_protObj
-    .word String_init
-    .word Bool_protObj
-    .word Bool_init
-<other_prot_init>
+<prot_init; separator="\n">
 >>
 
 str_attribute(len, str) ::= <<
-    .word <len>
+    .word   <len>
     .asciiz <str>
-    .align 2
+    .align  2
 >>
 
 word(value) ::= <<
-    .word <value>
+    .word   <value>
 >>
 
 protObj(class, index, dim, disp_ptr, attributes) ::= <<
 <class>_protObj:
-    .word <index>
-    .word <dim>
-    .word <disp_ptr>
+    .word   <index>
+    .word   <dim>
+    .word   <disp_ptr>
 <if(attributes)><attributes><else><endif>
 >>
 
@@ -111,85 +96,85 @@ dispTab(class, methods) ::= <<
 >>
 
 textGlobals() ::= <<
-    .globl Int_init
-    .globl String_init
-    .globl Bool_init
-    .globl Main_init
-    .globl Main.main
+    .globl  Int_init
+    .globl  String_init
+    .globl  Bool_init
+    .globl  Main_init
+    .globl  Main.main
 >>
 
 initMethod(class, parent_init_method, attr_init_exprs) ::= <<
 <class>_init:
-    addiu $sp $sp -12
-    sw $fp 12($sp)
-    sw $s0 8($sp)
-    sw $ra 4($sp)
-    addiu $fp $sp 4
-    move $s0 $a0
-    <if(parent_init_method)>jal <parent_init_method> <else><endif>
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    <if(parent_init_method)>jal     <parent_init_method><else><endif>
     <if(attr_init_exprs)><attr_init_exprs> <else><endif>
-    move $a0 $s0
-    lw $fp 12($sp)
-    lw $s0 8($sp)
-    lw $ra 4($sp)
-    addiu $sp $sp 12
-    jr $ra
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
 >>
 
 methodDef(class, method, body, offset) ::= <<
 <class>.<method>:
-    addiu $sp $sp -12
-    sw $fp 12($sp)
-    sw $s0 8($sp)
-    sw $ra 4($sp)
-    addiu $fp $sp 4
-    move $s0 $a0
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
 <body>
-    lw $fp 12($sp)
-    lw $s0 8($sp)
-    lw $ra 4($sp)
-    addiu $sp $sp <offset>  # 12 + 4 * nr_params
-    jr $ra
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp <offset>  # 12 + 4 * nr_params
+    jr      $ra
 >>
 
 literal(value) ::= <<
-	la $a0 <value>
+	la      $a0 <value>
 >>
 
 arg(e) ::= <<
 <e>
-    sw $a0 0($sp)
-    addiu $sp $sp -4
+    sw      $a0 0($sp)
+    addiu   $sp $sp -4
 >>
 
 dispatch_abort_call(file_name, line_number) ::= <<
-    la $a0 <file_name>
-    li $ti <line_number>
-    jal _dispatch_abort
+    la      $a0 <file_name>
+    li      $ti <line_number>
+    jal     _dispatch_abort
 >>
 
 simple_dispatch(args, index, file_name, line_number, method_offset) ::= <<
-    move $a0 $s0
+    move    $a0 $s0
 <args>
-    bnez $a0 dispatch<index>
+    bnez    $a0 dispatch<index>
 <dispatch_abort_call(file_name, line_number)>
 dispatch<index>:
-    lw $t1 8($a0)  # dispatch table
-    lw $t1 <method_offset>($t1)  # method offset
-    jalr $t1
+    lw      $t1 8($a0)  # dispatch table
+    lw      $t1 <method_offset>($t1)  # method offset
+    jalr    $t1
 >>
 
 dispatch(e, args, index, file_name, line_number, method_offset) ::= <<
 <args>
 <e> # self object in $a0
-    bnez $a0 dispatch<index>
+    bnez    $a0 dispatch<index>
 <dispatch_abort_call(file_name, line_number)>
 dispatch<index>:
-    lw $t1 8($a0)  # dispatch table
-    lw $t1 <method_offset>($t1)  # method offset
-    jalr $t1
+    lw      $t1 8($a0)  # dispatch table
+    lw      $t1 <method_offset>($t1)  # method offset
+    jalr    $t1
 >>
 
 param(offset) ::= <<
-    lw $a0 <offset>($fp)  # 12 + 4 * (param_index - 1)
+    lw      $a0 <offset>($fp)  # 12 + 4 * (param_index - 1)
 >>
