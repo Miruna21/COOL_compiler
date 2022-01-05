@@ -45,8 +45,9 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
             type.setOffset(offset + PROTOTYPE_LENGTH);
             offset += 4;
             attr.setOffset(offset);
+            node.setTotal_attributes(offset / 4);
         }
-
+//        System.err.println(node.getName());
         // reprezentarea claselor si a tabelurilor de metode
         allObjects.add("e", createClassST(node));
 
@@ -136,15 +137,17 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         textSection = templates.getInstanceOf("sequenceSpaced");
         initCodeSections();
 
+        ST methodDefs = templates.getInstanceOf("sequence");
         for (ASTNode e : program.getClasses())
-            textSection.add("e", e.accept(this));
+            methodDefs.add("e", e.accept(this));
 
-        dataSection.add("e", allObjects);
-        dataSection.add("e", allDispTables);
         dataSection.add("e", strConstants).add("e", intConstants).add("e", boolConstants);
         dataSection.add("e", nameTable);
         dataSection.add("e", objTable);
+        dataSection.add("e", allObjects);
+        dataSection.add("e", allDispTables);
         textSection.add("e", initMethods);
+        textSection.add("e", methodDefs);
 
         var programST = templates.getInstanceOf("program");
         programST.add("data", dataSection);
@@ -267,9 +270,21 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Method method) {
-        method.getName().accept(this);
-        method.getBody().accept(this);
-        return null;
+        MethodSymbol methodSymbol = (MethodSymbol) method.getName().getSymbol();
+        ClassSymbol currentClass = (ClassSymbol) methodSymbol.getParent();
+        var st = templates.getInstanceOf("methodDef");
+        var formals = method.getFormals();
+        int n = formals.size();
+
+        for (int i = 0; i < n; i++)
+            formals.get(i).getArgName().getSymbol().setOffset(12 + i * 4);
+
+        st.add("class", currentClass.getName())
+                .add("method", methodSymbol.getName())
+                .add("body", method.getBody().accept(this))
+                .add("offset", 4 * n + 12);
+
+        return st;
     }
 
     @Override
