@@ -13,8 +13,6 @@ heap_start:
     .text
 <textGlobals()>
 <text>
-	li  $v0, 10
-	syscall		#exit
 >>
 
 dataGlobals() ::= <<
@@ -133,12 +131,12 @@ methodDef(class, method, body, offset) ::= <<
     lw      $fp 12($sp)
     lw      $s0 8($sp)
     lw      $ra 4($sp)
-    addiu   $sp $sp <offset>  # 12 + 4 * nr_params
+    addiu   $sp $sp <offset>
     jr      $ra
 >>
 
 literal(value) ::= <<
-	la      $a0 <value>
+    la      $a0 <value>
 >>
 
 arg(e) ::= <<

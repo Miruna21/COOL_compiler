@@ -1,0 +1,3998 @@
+    .data
+    .align  2
+    .globl  class_nameTab
+    .globl  Int_protObj
+    .globl  String_protObj
+    .globl  bool_const0
+    .globl  bool_const1
+    .globl  Main_protObj
+    .globl  _int_tag
+    .globl  _string_tag
+    .globl  _bool_tag
+_int_tag:
+    .word   2
+_string_tag:
+    .word   3
+_bool_tag:
+    .word   4
+str_const0:
+    .word   3
+    .word   5
+    .word   String_dispTab
+    .word   int_const0
+    .asciiz ""
+    .align  2
+str_const1:
+    .word   3
+    .word   6
+    .word   String_dispTab
+    .word   int_const1
+    .asciiz "Object"
+    .align  2
+str_const2:
+    .word   3
+    .word   5
+    .word   String_dispTab
+    .word   int_const2
+    .asciiz "IO"
+    .align  2
+str_const3:
+    .word   3
+    .word   5
+    .word   String_dispTab
+    .word   int_const3
+    .asciiz "A"
+    .align  2
+str_const4:
+    .word   3
+    .word   5
+    .word   String_dispTab
+    .word   int_const3
+    .asciiz "B"
+    .align  2
+str_const5:
+    .word   3
+    .word   5
+    .word   String_dispTab
+    .word   int_const3
+    .asciiz "D"
+    .align  2
+str_const6:
+    .word   3
+    .word   5
+    .word   String_dispTab
+    .word   int_const3
+    .asciiz "E"
+    .align  2
+str_const7:
+    .word   3
+    .word   6
+    .word   String_dispTab
+    .word   int_const4
+    .asciiz "Main"
+    .align  2
+str_const8:
+    .word   3
+    .word   5
+    .word   String_dispTab
+    .word   int_const3
+    .asciiz "C"
+    .align  2
+str_const9:
+    .word   3
+    .word   5
+    .word   String_dispTab
+    .word   int_const3
+    .asciiz "F"
+    .align  2
+str_const10:
+    .word   3
+    .word   5
+    .word   String_dispTab
+    .word   int_const5
+    .asciiz "Int"
+    .align  2
+str_const11:
+    .word   3
+    .word   6
+    .word   String_dispTab
+    .word   int_const1
+    .asciiz "String"
+    .align  2
+str_const12:
+    .word   3
+    .word   6
+    .word   String_dispTab
+    .word   int_const4
+    .asciiz "Bool"
+    .align  2
+str_const13:
+    .word   3
+    .word   5
+    .word   String_dispTab
+    .word   int_const5
+    .asciiz "abc"
+    .align  2
+
+int_const0:
+    .word   2
+    .word   4
+    .word   Int_dispTab
+    .word   0
+int_const1:
+    .word   2
+    .word   4
+    .word   Int_dispTab
+    .word   6
+int_const2:
+    .word   2
+    .word   4
+    .word   Int_dispTab
+    .word   2
+int_const3:
+    .word   2
+    .word   4
+    .word   Int_dispTab
+    .word   1
+int_const4:
+    .word   2
+    .word   4
+    .word   Int_dispTab
+    .word   4
+int_const5:
+    .word   2
+    .word   4
+    .word   Int_dispTab
+    .word   3
+int_const6:
+    .word   2
+    .word   4
+    .word   Int_dispTab
+    .word   100
+
+bool_const0:
+    .word   4
+    .word   4
+    .word   Bool_dispTab
+    .word   0
+bool_const1:
+    .word   4
+    .word   4
+    .word   Bool_dispTab
+    .word   1
+
+class_nameTab:
+    .word   str_const1
+    .word   str_const2
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const10
+    .word   str_const11
+    .word   str_const12
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const2
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const10
+    .word   str_const11
+    .word   str_const12
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const2
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const10
+    .word   str_const11
+    .word   str_const12
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const2
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const10
+    .word   str_const11
+    .word   str_const12
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const2
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const10
+    .word   str_const11
+    .word   str_const12
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const2
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const10
+    .word   str_const11
+    .word   str_const12
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const2
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const10
+    .word   str_const11
+    .word   str_const12
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const2
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const10
+    .word   str_const11
+    .word   str_const12
+    .word   str_const2
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const3
+    .word   str_const4
+    .word   str_const5
+    .word   str_const6
+    .word   str_const7
+    .word   str_const8
+    .word   str_const9
+    .word   str_const10
+    .word   str_const11
+    .word   str_const12
+
+class_objTab:
+    .word   Object_protObj
+    .word   Object_init
+    .word   IO_protObj
+    .word   IO_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   Int_protObj
+    .word   Int_init
+    .word   String_protObj
+    .word   String_init
+    .word   Bool_protObj
+    .word   Bool_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   IO_protObj
+    .word   IO_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   Int_protObj
+    .word   Int_init
+    .word   String_protObj
+    .word   String_init
+    .word   Bool_protObj
+    .word   Bool_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   IO_protObj
+    .word   IO_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   Int_protObj
+    .word   Int_init
+    .word   String_protObj
+    .word   String_init
+    .word   Bool_protObj
+    .word   Bool_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   IO_protObj
+    .word   IO_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   Int_protObj
+    .word   Int_init
+    .word   String_protObj
+    .word   String_init
+    .word   Bool_protObj
+    .word   Bool_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   IO_protObj
+    .word   IO_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   Int_protObj
+    .word   Int_init
+    .word   String_protObj
+    .word   String_init
+    .word   Bool_protObj
+    .word   Bool_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   IO_protObj
+    .word   IO_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   Int_protObj
+    .word   Int_init
+    .word   String_protObj
+    .word   String_init
+    .word   Bool_protObj
+    .word   Bool_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   IO_protObj
+    .word   IO_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   Int_protObj
+    .word   Int_init
+    .word   String_protObj
+    .word   String_init
+    .word   Bool_protObj
+    .word   Bool_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   IO_protObj
+    .word   IO_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   Int_protObj
+    .word   Int_init
+    .word   String_protObj
+    .word   String_init
+    .word   Bool_protObj
+    .word   Bool_init
+    .word   IO_protObj
+    .word   IO_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   A_protObj
+    .word   A_init
+    .word   B_protObj
+    .word   B_init
+    .word   D_protObj
+    .word   D_init
+    .word   E_protObj
+    .word   E_init
+    .word   Main_protObj
+    .word   Main_init
+    .word   C_protObj
+    .word   C_init
+    .word   F_protObj
+    .word   F_init
+    .word   Int_protObj
+    .word   Int_init
+    .word   String_protObj
+    .word   String_init
+    .word   Bool_protObj
+    .word   Bool_init
+
+Object_protObj:
+    .word   0
+    .word   3
+    .word   Object_dispTab
+
+IO_protObj:
+    .word   1
+    .word   3
+    .word   IO_dispTab
+
+A_protObj:
+    .word   2
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   3
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   4
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   5
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   6
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   7
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   8
+    .word   3
+    .word   F_dispTab
+
+A_protObj:
+    .word   9
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   10
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   11
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   12
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   13
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   14
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   15
+    .word   3
+    .word   F_dispTab
+
+Int_protObj:
+    .word   16
+    .word   4
+    .word   Int_dispTab
+    .word   0
+String_protObj:
+    .word   17
+    .word   5
+    .word   String_dispTab
+    .word   int_const0
+    .asciiz ""
+    .align  2
+Bool_protObj:
+    .word   18
+    .word   4
+    .word   Bool_dispTab
+    .word   0
+A_protObj:
+    .word   19
+    .word   3
+    .word   A_dispTab
+
+B_protObj:
+    .word   20
+    .word   3
+    .word   B_dispTab
+
+D_protObj:
+    .word   21
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   22
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   23
+    .word   3
+    .word   Main_dispTab
+
+C_protObj:
+    .word   24
+    .word   3
+    .word   C_dispTab
+
+F_protObj:
+    .word   25
+    .word   3
+    .word   F_dispTab
+
+IO_protObj:
+    .word   26
+    .word   3
+    .word   IO_dispTab
+
+A_protObj:
+    .word   27
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   28
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   29
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   30
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   31
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   32
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   33
+    .word   3
+    .word   F_dispTab
+
+A_protObj:
+    .word   34
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   35
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   36
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   37
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   38
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   39
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   40
+    .word   3
+    .word   F_dispTab
+
+Int_protObj:
+    .word   41
+    .word   4
+    .word   Int_dispTab
+    .word   0
+String_protObj:
+    .word   42
+    .word   5
+    .word   String_dispTab
+    .word   int_const0
+    .asciiz ""
+    .align  2
+Bool_protObj:
+    .word   43
+    .word   4
+    .word   Bool_dispTab
+    .word   0
+A_protObj:
+    .word   44
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   45
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   46
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   47
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   48
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   49
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   50
+    .word   3
+    .word   F_dispTab
+
+IO_protObj:
+    .word   51
+    .word   3
+    .word   IO_dispTab
+
+A_protObj:
+    .word   52
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   53
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   54
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   55
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   56
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   57
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   58
+    .word   3
+    .word   F_dispTab
+
+A_protObj:
+    .word   59
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   60
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   61
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   62
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   63
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   64
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   65
+    .word   3
+    .word   F_dispTab
+
+Int_protObj:
+    .word   66
+    .word   4
+    .word   Int_dispTab
+    .word   0
+String_protObj:
+    .word   67
+    .word   5
+    .word   String_dispTab
+    .word   int_const0
+    .asciiz ""
+    .align  2
+Bool_protObj:
+    .word   68
+    .word   4
+    .word   Bool_dispTab
+    .word   0
+A_protObj:
+    .word   69
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   70
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   71
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   72
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   73
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   74
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   75
+    .word   3
+    .word   F_dispTab
+
+IO_protObj:
+    .word   76
+    .word   3
+    .word   IO_dispTab
+
+A_protObj:
+    .word   77
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   78
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   79
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   80
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   81
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   82
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   83
+    .word   3
+    .word   F_dispTab
+
+A_protObj:
+    .word   84
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   85
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   86
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   87
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   88
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   89
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   90
+    .word   3
+    .word   F_dispTab
+
+Int_protObj:
+    .word   91
+    .word   4
+    .word   Int_dispTab
+    .word   0
+String_protObj:
+    .word   92
+    .word   5
+    .word   String_dispTab
+    .word   int_const0
+    .asciiz ""
+    .align  2
+Bool_protObj:
+    .word   93
+    .word   4
+    .word   Bool_dispTab
+    .word   0
+A_protObj:
+    .word   94
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   95
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   96
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   97
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   98
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   99
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   100
+    .word   3
+    .word   F_dispTab
+
+IO_protObj:
+    .word   101
+    .word   3
+    .word   IO_dispTab
+
+A_protObj:
+    .word   102
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   103
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   104
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   105
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   106
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   107
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   108
+    .word   3
+    .word   F_dispTab
+
+A_protObj:
+    .word   109
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   110
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   111
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   112
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   113
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   114
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   115
+    .word   3
+    .word   F_dispTab
+
+Int_protObj:
+    .word   116
+    .word   4
+    .word   Int_dispTab
+    .word   0
+String_protObj:
+    .word   117
+    .word   5
+    .word   String_dispTab
+    .word   int_const0
+    .asciiz ""
+    .align  2
+Bool_protObj:
+    .word   118
+    .word   4
+    .word   Bool_dispTab
+    .word   0
+A_protObj:
+    .word   119
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   120
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   121
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   122
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   123
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   124
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   125
+    .word   3
+    .word   F_dispTab
+
+IO_protObj:
+    .word   126
+    .word   3
+    .word   IO_dispTab
+
+A_protObj:
+    .word   127
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   128
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   129
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   130
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   131
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   132
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   133
+    .word   3
+    .word   F_dispTab
+
+A_protObj:
+    .word   134
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   135
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   136
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   137
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   138
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   139
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   140
+    .word   3
+    .word   F_dispTab
+
+Int_protObj:
+    .word   141
+    .word   4
+    .word   Int_dispTab
+    .word   0
+String_protObj:
+    .word   142
+    .word   5
+    .word   String_dispTab
+    .word   int_const0
+    .asciiz ""
+    .align  2
+Bool_protObj:
+    .word   143
+    .word   4
+    .word   Bool_dispTab
+    .word   0
+A_protObj:
+    .word   144
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   145
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   146
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   147
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   148
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   149
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   150
+    .word   3
+    .word   F_dispTab
+
+IO_protObj:
+    .word   151
+    .word   3
+    .word   IO_dispTab
+
+A_protObj:
+    .word   152
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   153
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   154
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   155
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   156
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   157
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   158
+    .word   3
+    .word   F_dispTab
+
+A_protObj:
+    .word   159
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   160
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   161
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   162
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   163
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   164
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   165
+    .word   3
+    .word   F_dispTab
+
+Int_protObj:
+    .word   166
+    .word   4
+    .word   Int_dispTab
+    .word   0
+String_protObj:
+    .word   167
+    .word   5
+    .word   String_dispTab
+    .word   int_const0
+    .asciiz ""
+    .align  2
+Bool_protObj:
+    .word   168
+    .word   4
+    .word   Bool_dispTab
+    .word   0
+A_protObj:
+    .word   169
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   170
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   171
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   172
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   173
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   174
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   175
+    .word   3
+    .word   F_dispTab
+
+IO_protObj:
+    .word   176
+    .word   3
+    .word   IO_dispTab
+
+A_protObj:
+    .word   177
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   178
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   179
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   180
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   181
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   182
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   183
+    .word   3
+    .word   F_dispTab
+
+A_protObj:
+    .word   184
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   185
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   186
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   187
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   188
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   189
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   190
+    .word   3
+    .word   F_dispTab
+
+Int_protObj:
+    .word   191
+    .word   4
+    .word   Int_dispTab
+    .word   0
+String_protObj:
+    .word   192
+    .word   5
+    .word   String_dispTab
+    .word   int_const0
+    .asciiz ""
+    .align  2
+Bool_protObj:
+    .word   193
+    .word   4
+    .word   Bool_dispTab
+    .word   0
+IO_protObj:
+    .word   194
+    .word   3
+    .word   IO_dispTab
+
+A_protObj:
+    .word   195
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   196
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   197
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   198
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   199
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   200
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   201
+    .word   3
+    .word   F_dispTab
+
+A_protObj:
+    .word   202
+    .word   4
+    .word   A_dispTab
+    .word   int_const0
+B_protObj:
+    .word   203
+    .word   5
+    .word   B_dispTab
+    .word   int_const0
+    .word   str_const0
+D_protObj:
+    .word   204
+    .word   3
+    .word   D_dispTab
+
+E_protObj:
+    .word   205
+    .word   3
+    .word   E_dispTab
+
+Main_protObj:
+    .word   206
+    .word   6
+    .word   Main_dispTab
+    .word   int_const0
+    .word   str_const0
+    .word   0
+C_protObj:
+    .word   207
+    .word   5
+    .word   C_dispTab
+    .word   int_const0
+    .word   bool_const0
+F_protObj:
+    .word   208
+    .word   3
+    .word   F_dispTab
+
+Int_protObj:
+    .word   209
+    .word   4
+    .word   Int_dispTab
+    .word   0
+String_protObj:
+    .word   210
+    .word   5
+    .word   String_dispTab
+    .word   int_const0
+    .asciiz ""
+    .align  2
+Bool_protObj:
+    .word   211
+    .word   4
+    .word   Bool_dispTab
+    .word   0
+
+Object_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+IO_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+Int_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+String_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   String.length
+    .word   String.concat
+    .word   String.substr
+Bool_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+IO_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+Int_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+String_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   String.length
+    .word   String.concat
+    .word   String.substr
+Bool_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+IO_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+Int_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+String_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   String.length
+    .word   String.concat
+    .word   String.substr
+Bool_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+IO_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+Int_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+String_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   String.length
+    .word   String.concat
+    .word   String.substr
+Bool_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   C.f
+    .word   C.h
+IO_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+Int_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+String_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   String.length
+    .word   String.concat
+    .word   String.substr
+Bool_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   C.f
+    .word   C.h
+IO_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+Int_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+String_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   String.length
+    .word   String.concat
+    .word   String.substr
+Bool_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   C.f
+    .word   C.h
+IO_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+Int_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+String_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   String.length
+    .word   String.concat
+    .word   String.substr
+Bool_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   A.f
+    .word   C.f
+    .word   C.h
+IO_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+Int_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+String_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   String.length
+    .word   String.concat
+    .word   String.substr
+Bool_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+IO_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+A_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+B_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+D_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+E_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+Main_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   B.g
+    .word   Main.main
+C_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+F_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   IO.out_string
+    .word   IO.out_int
+    .word   IO.in_string
+    .word   IO.in_int
+    .word   A.f
+    .word   C.f
+    .word   C.h
+Int_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+String_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+    .word   String.length
+    .word   String.concat
+    .word   String.substr
+Bool_dispTab:
+    .word   Object.abort
+    .word   Object.type_name
+    .word   Object.copy
+
+    .globl  heap_start
+heap_start:
+    .word   0
+
+    .text
+    .globl  Int_init
+    .globl  String_init
+    .globl  Bool_init
+    .globl  Main_init
+    .globl  Main.main
+Object_init:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+IO_init:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    jal     Object_init
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+Int_init:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    jal     Object_init
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+String_init:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    jal     Object_init
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+Bool_init:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    jal     Object_init
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+A_init:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    jal     IO_init
+        la      $a0 int_const6 
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+B_init:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    jal     A_init
+        la      $a0 str_const13 
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+C_init:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    jal     A_init
+        la      $a0 bool_const1 
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+D_init:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    jal     B_init
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+E_init:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    jal     B_init
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+F_init:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    jal     C_init
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+Main_init:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    jal     E_init
+     
+    move    $a0 $s0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+
+A.f:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    la      $a0 int_const3
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+B.g:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    la      $a0 int_const2
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+C.f:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    la      $a0 int_const5
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+C.h:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    la      $a0 int_const4
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
+
+
+
+Main.main:
+    addiu   $sp $sp -12
+    sw      $fp 12($sp)
+    sw      $s0 8($sp)
+    sw      $ra 4($sp)
+    addiu   $fp $sp 4
+    move    $s0 $a0
+    lw      $fp 12($sp)
+    lw      $s0 8($sp)
+    lw      $ra 4($sp)
+    addiu   $sp $sp 12
+    jr      $ra
