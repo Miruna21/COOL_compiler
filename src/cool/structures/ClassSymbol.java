@@ -12,7 +12,6 @@ public class ClassSymbol extends TypeSymbol {
     protected Scope parent;
     protected String parentName;
     protected List<ClassSymbol> children;
-    protected Integer classIndex;
     protected Integer total_attributes = 0;
 
     public static final ClassSymbol OBJECT  = new ClassSymbol("","Object");
@@ -102,14 +101,6 @@ public class ClassSymbol extends TypeSymbol {
 
     public List<ClassSymbol> getChildren() {
         return children;
-    }
-
-    public Integer getClassIndex() {
-        return classIndex;
-    }
-
-    public void setClassIndex(Integer classIndex) {
-        this.classIndex = classIndex;
     }
 
     public Integer getTotal_attributes() {
