@@ -44,6 +44,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     int dispatchIndex = 0;
 
     final static int PROTOTYPE_LENGTH = 12;
+    final static int ACTIVATION_RECORD_LENGTH = 12;
 
     private void dfs(ClassSymbol node, int attrIndex, int methodIndex) {
         for (IdSymbol attr : node.getAttributes().values()) {
@@ -366,6 +367,9 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
                 st = templates.getInstanceOf("attr_get");
                 st.add("offset", symbol.getIndex() * 4 + PROTOTYPE_LENGTH);
             }
+        } else if (symbol.getGroup() == Symbol.FORMAL_GROUP) {
+            st = templates.getInstanceOf("formal_get");
+            st.add("offset", symbol.getIndex() * 4 + ACTIVATION_RECORD_LENGTH);
         }
 
         return st;
@@ -607,7 +611,21 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Assign assign) {
-        return null;
+        Symbol symbol = assign.getName().getSymbol();
+        ST st = templates.getInstanceOf("sequence");
+        st.add("e", assign.getExpr().accept(this));
+
+        if (symbol.getGroup() == Symbol.ATTRIBUTE_GROUP) {
+            ST attr_set = templates.getInstanceOf("attr_set");
+            attr_set.add("offset", symbol.getIndex() * 4 + PROTOTYPE_LENGTH);
+            st.add("e", attr_set);
+        } else if (symbol.getGroup() == Symbol.FORMAL_GROUP) {
+            ST formal_set = templates.getInstanceOf("formal_set");
+            formal_set.add("offset", symbol.getIndex() * 4 + ACTIVATION_RECORD_LENGTH);
+            st.add("e", formal_set);
+        }
+
+        return st;
     }
 
     private String getFileName(ParserRuleContext ctx) {

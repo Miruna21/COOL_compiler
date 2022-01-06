@@ -154,6 +154,14 @@ self_get() ::= <<
     move    $a0 $s0
 >>
 
+formal_get(offset) ::= <<
+    lw      $a0 <offset>($fp)
+>>
+
+formal_set(offset) ::= <<
+    sw      $a0 <offset>($fp)
+>>
+
 arg(e) ::= <<
 <e>
     sw      $a0 0($sp)
@@ -186,8 +194,4 @@ dispatch<index>:
     lw      $t1 8($a0)   # dispatch table
     lw      $t1 <method_offset>($t1)   # method offset
     jalr    $t1
->>
-
-param(offset) ::= <<
-    lw      $a0 <offset>($fp)   # 12 + 4 * (param_index - 1)
 >>
