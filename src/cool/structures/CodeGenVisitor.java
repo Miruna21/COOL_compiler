@@ -59,8 +59,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
             attr.setIndex(attrIndex);
             attr.setGroup(Symbol.ATTRIBUTE_GROUP);
             attrIndex++;
-            node.setTotal_attributes(attrIndex);
         }
+        node.setTotal_attributes(attrIndex);
 
         for (MethodSymbol method : node.getMethods().values()) {
             method.setIndex(methodIndex);
@@ -237,7 +237,9 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
                 .add("disp_ptr", classSymbol.getName() + "_dispTab");
 
         // atribute fictive pentru clasele predefinite
-        if (classSymbol == ClassSymbol.INT || classSymbol == ClassSymbol.BOOL) {
+        if (classSymbol.getTotal_attributes() != 0)
+            classProt.add("attributes", attributes).add("dim", dim);
+        else if (classSymbol == ClassSymbol.INT || classSymbol == ClassSymbol.BOOL) {
             ST pseudoAttribute = templates.getInstanceOf("word");
             pseudoAttribute.add("value", 0);
             classProt.add("attributes", pseudoAttribute).add("dim", dim + 1);
@@ -246,7 +248,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
             pseudoAttribute.add("len", get_or_generate_int(0)).add("str", "\"\"");
             classProt.add("attributes", pseudoAttribute).add("dim", dim + 2);
         } else {
-            classProt.add("attributes", attributes).add("dim", dim);
+            classProt.add("dim", dim);
         }
 
         return classProt;
@@ -503,7 +505,17 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(New new_) {
-        return null;
+        Symbol symbol = new_.getType().getSymbol();
+        ST st;
+
+        if (symbol instanceof SelfTypeSymbol)
+            st = templates.getInstanceOf("new_self_type");
+        else {
+            st = templates.getInstanceOf("new_class");
+            st.add("class", symbol.getName());
+        }
+
+        return st;
     }
 
     @Override
