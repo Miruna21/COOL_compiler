@@ -550,7 +550,37 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Dispatch dispatch) {
-        return null;
+        Symbol symbol = dispatch.getMethodName().getSymbol();
+        ST st;
+
+        if (dispatch instanceof SimpleDispatch)
+            st = templates.getInstanceOf("simple_dispatch");
+        else
+            st = templates.getInstanceOf("dispatch");
+
+        String file_name = get_or_generate_str(getFileName(dispatch.getContext()));
+        int line_number = dispatch.getToken().getLine();
+
+        int n = dispatch.getArgs().size() - 1;
+        ST argsST = templates.getInstanceOf("sequence");
+
+        for (int i = n; i >= 0; i--) {
+            ST argST = templates.getInstanceOf("arg");
+            argST.add("e", dispatch.getArgs().get(i).accept(this));
+
+            argsST.add("e", argST);
+        }
+
+        st.add("args", argsST);
+
+        if (!(dispatch instanceof SimpleDispatch))
+            st.add("e", dispatch.getExpr().accept(this));
+
+        st.add("index", dispatchIndex).add("file_name", file_name).add("line_number", line_number)
+                .add("method_offset", symbol.getIndex() * 4);
+
+        dispatchIndex++;
+        return st;
     }
 
     @Override
@@ -560,53 +590,12 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(SimpleDispatch simpleDispatch) {
-        Symbol symbol = simpleDispatch.getMethodName().getSymbol();
-        ST st = templates.getInstanceOf("simple_dispatch");
-
-        String file_name = get_or_generate_str(getFileName(simpleDispatch.getContext()));
-        int line_number = simpleDispatch.getToken().getLine();
-
-        int n = simpleDispatch.getArgs().size() - 1;
-        ST argsST = templates.getInstanceOf("sequence");
-
-        for (int i = n; i >= 0; i--) {
-            ST argST = templates.getInstanceOf("arg");
-            argST.add("e", simpleDispatch.getArgs().get(i).accept(this));
-
-            argsST.add("e", argST);
-        }
-
-        st.add("args", argsST).add("index", dispatchIndex).add("file_name", file_name)
-                .add("line_number", line_number).add("method_offset", symbol.getIndex() * 4);
-
-        dispatchIndex++;
-        return st;
+        return null;
     }
 
     @Override
     public ST visit(ExplicitDispatch explicitDispatch) {
-        Symbol symbol = explicitDispatch.getMethodName().getSymbol();
-        ST st = templates.getInstanceOf("dispatch");
-
-        String file_name = get_or_generate_str(getFileName(explicitDispatch.getContext()));
-        int line_number = explicitDispatch.getToken().getLine();
-
-        int n = explicitDispatch.getArgs().size() - 1;
-        ST argsST = templates.getInstanceOf("sequence");
-
-        for (int i = n; i >= 0; i--) {
-            ST argST = templates.getInstanceOf("arg");
-            argST.add("e", explicitDispatch.getArgs().get(i).accept(this));
-
-            argsST.add("e", argST);
-        }
-
-        st.add("args", argsST).add("e", explicitDispatch.getExpr().accept(this))
-                .add("index", dispatchIndex).add("file_name", file_name).add("line_number", line_number)
-                .add("method_offset", symbol.getIndex() * 4);
-
-        dispatchIndex++;
-        return st;
+        return null;
     }
 
     @Override
