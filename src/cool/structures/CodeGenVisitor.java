@@ -46,6 +46,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     final static int PROTOTYPE_LENGTH = 12;
     final static int ACTIVATION_RECORD_LENGTH = 12;
 
+    int letIndex = 0;
+
     private void dfs(ClassSymbol node, int attrIndex, int methodIndex) {
         for (IdSymbol attr : node.getAttributes().values()) {
             if (attr.getName().equals("self")) {
@@ -368,6 +370,9 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         } else if (symbol.getGroup() == Symbol.FORMAL_GROUP) {
             st = templates.getInstanceOf("formal_get");
             st.add("offset", symbol.getIndex() * 4 + ACTIVATION_RECORD_LENGTH);
+        } else if (symbol.getGroup() == Symbol.LOCAL_GROUP) {
+            st = templates.getInstanceOf("formal_get");
+            st.add("offset", -symbol.getIndex() * 4);
         }
 
         return st;
@@ -523,7 +528,43 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Let let) {
-        return null;
+        letIndex += 1;
+        ST letST = templates.getInstanceOf("let");
+        ST initExprSt;
+
+        Local localVar = let.getLocal();
+        IdSymbol symbol = (IdSymbol)localVar.getName().getSymbol();
+        symbol.setGroup(Symbol.LOCAL_GROUP);
+        symbol.setIndex(letIndex);
+
+        if (localVar.getInit() == null){
+            String initExpr = "la      $a0 ";
+            String value;
+
+            TypeSymbol type = ((IdSymbol)localVar.getName().getSymbol()).getType();
+            if (type == ClassSymbol.INT) {
+                value = get_or_generate_int(0);
+            } else if (type == ClassSymbol.STRING) {
+                value = get_or_generate_str("");
+            } else if (type == ClassSymbol.BOOL) {
+                value = get_or_generate_bool("false");
+            } else {
+                initExpr = "li      $a0 ";
+                value = "0";
+            }
+            initExpr = initExpr + value;
+            initExprSt = templates.getInstanceOf("sequence");
+            initExprSt.add("e", initExpr);
+        } else {
+            initExprSt = localVar.getInit().accept(this);
+        }
+
+        ST body = let.getBody().accept(this);
+
+        letST.add("offset", letIndex * 4).add("init_expr", initExprSt).add("body", body);
+
+        letIndex -= 1;
+        return letST;
     }
 
     @Override
@@ -548,37 +589,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Dispatch dispatch) {
-        Symbol symbol = dispatch.getMethodName().getSymbol();
-        ST st;
-
-        if (dispatch instanceof SimpleDispatch)
-            st = templates.getInstanceOf("simple_dispatch");
-        else
-            st = templates.getInstanceOf("dispatch");
-
-        String file_name = get_or_generate_str(getFileName(dispatch.getContext()));
-        int line_number = dispatch.getToken().getLine();
-
-        int n = dispatch.getArgs().size() - 1;
-        ST argsST = templates.getInstanceOf("sequence");
-
-        for (int i = n; i >= 0; i--) {
-            ST argST = templates.getInstanceOf("arg");
-            argST.add("e", dispatch.getArgs().get(i).accept(this));
-
-            argsST.add("e", argST);
-        }
-
-        st.add("args", argsST);
-
-        if (!(dispatch instanceof SimpleDispatch))
-            st.add("e", dispatch.getExpr().accept(this));
-
-        st.add("index", dispatchIndex).add("file_name", file_name).add("line_number", line_number)
-                .add("method_offset", symbol.getIndex() * 4);
-
-        dispatchIndex++;
-        return st;
+        return null;
     }
 
     @Override
@@ -588,12 +599,53 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(SimpleDispatch simpleDispatch) {
-        return null;
+        Symbol symbol = simpleDispatch.getMethodName().getSymbol();
+        ST st = templates.getInstanceOf("simple_dispatch");
+
+        String file_name = get_or_generate_str(getFileName(simpleDispatch.getContext()));
+        int line_number = simpleDispatch.getToken().getLine();
+
+        int n = simpleDispatch.getArgs().size() - 1;
+        ST argsST = templates.getInstanceOf("sequence");
+
+        for (int i = n; i >= 0; i--) {
+            ST argST = templates.getInstanceOf("arg");
+            argST.add("e", simpleDispatch.getArgs().get(i).accept(this));
+
+            argsST.add("e", argST);
+        }
+
+        st.add("args", argsST).add("index", dispatchIndex).add("file_name", file_name)
+                .add("line_number", line_number).add("method_offset", symbol.getIndex() * 4);
+
+        dispatchIndex++;
+        return st;
     }
 
     @Override
     public ST visit(ExplicitDispatch explicitDispatch) {
-        return null;
+        Symbol symbol = explicitDispatch.getMethodName().getSymbol();
+        ST st = templates.getInstanceOf("dispatch");
+
+        String file_name = get_or_generate_str(getFileName(explicitDispatch.getContext()));
+        int line_number = explicitDispatch.getToken().getLine();
+
+        int n = explicitDispatch.getArgs().size() - 1;
+        ST argsST = templates.getInstanceOf("sequence");
+
+        for (int i = n; i >= 0; i--) {
+            ST argST = templates.getInstanceOf("arg");
+            argST.add("e", explicitDispatch.getArgs().get(i).accept(this));
+
+            argsST.add("e", argST);
+        }
+
+        st.add("args", argsST).add("e", explicitDispatch.getExpr().accept(this))
+                .add("index", dispatchIndex).add("file_name", file_name).add("line_number", line_number)
+                .add("method_offset", symbol.getIndex() * 4);
+
+        dispatchIndex++;
+        return st;
     }
 
     @Override
@@ -609,6 +661,10 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         } else if (symbol.getGroup() == Symbol.FORMAL_GROUP) {
             ST formal_set = templates.getInstanceOf("formal_set");
             formal_set.add("offset", symbol.getIndex() * 4 + ACTIVATION_RECORD_LENGTH);
+            st.add("e", formal_set);
+        } else if (symbol.getGroup() == Symbol.LOCAL_GROUP) {
+            ST formal_set = templates.getInstanceOf("formal_set");
+            formal_set.add("offset", -symbol.getIndex() * 4);
             st.add("e", formal_set);
         }
 

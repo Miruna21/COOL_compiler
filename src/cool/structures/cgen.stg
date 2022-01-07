@@ -195,3 +195,12 @@ dispatch<index>:
     lw      $t1 <method_offset>($t1)   # method offset
     jalr    $t1
 >>
+
+
+let(init_expr, body, offset) ::= <<
+    addiu   $sp $sp -4   # locals alloc
+    <init_expr>
+    sw      $a0 -<offset>($fp)
+    <body>
+    addiu   $sp $sp 4    # locals free
+>>
