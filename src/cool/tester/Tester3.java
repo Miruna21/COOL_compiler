@@ -14,6 +14,8 @@ public class Tester3 {
 
         var filenameFilter = new FilenameFilter() {
             public boolean accept(File dir, String name) {
+
+//                return name.endsWith(".cl") && ! name.endsWith("main.cl") && name.contains("02");
                 return name.endsWith(".cl") && ! name.endsWith("main.cl");
             }
         };
