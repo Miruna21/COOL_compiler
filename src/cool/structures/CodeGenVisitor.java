@@ -606,7 +606,28 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(AtDispatch atDispatch) {
-        return null;
+        Symbol symbol = atDispatch.getMethodName().getSymbol();
+        ST st = templates.getInstanceOf("dispatch");
+
+        String file_name = get_or_generate_str(getFileName(atDispatch.getContext()));
+        int line_number = atDispatch.getToken().getLine();
+
+        int n = atDispatch.getArgs().size() - 1;
+        ST argsST = templates.getInstanceOf("sequence");
+
+        for (int i = n; i >= 0; i--) {
+            ST argST = templates.getInstanceOf("arg");
+            argST.add("e", atDispatch.getArgs().get(i).accept(this));
+
+            argsST.add("e", argST);
+        }
+
+        st.add("args", argsST).add("e", atDispatch.getExpr().accept(this))
+                .add("index", dispatchIndex).add("file_name", file_name).add("line_number", line_number)
+                .add("method_offset", symbol.getIndex() * 4);
+
+        dispatchIndex++;
+        return st;
     }
 
     @Override
