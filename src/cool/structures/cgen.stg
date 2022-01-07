@@ -224,3 +224,16 @@ new_self_type() ::= <<
     lw      $t1 4($t1)          # _init
     jalr    $t1
 >>
+
+if(e1, e2, e3, index) ::= <<
+<e1>
+    lw      $t1 12($a0)     # bool slot
+    beqz    $t1 true_branch
+false_branch<index>:
+<e2>
+    b       end_if
+true_branch<index>:
+<e3>
+end_if<index>:
+
+>>
