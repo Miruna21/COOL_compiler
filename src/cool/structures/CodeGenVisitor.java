@@ -46,6 +46,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     final static int PROTOTYPE_LENGTH = 12;
     final static int ACTIVATION_RECORD_LENGTH = 12;
 
+    int letOffset = 0;
+
     private void dfs(ClassSymbol node, int attrIndex, int methodIndex) {
         for (IdSymbol attr : node.getAttributes().values()) {
             if (attr.getName().equals("self")) {
@@ -523,7 +525,38 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Let let) {
-        return null;
+        letOffset += 4;
+        ST letST = templates.getInstanceOf("let");
+        ST initExprSt;
+
+        Local localVar = let.getLocal();
+        if (localVar.getInit() == null){
+            String initExpr = "la  $a0 ";
+            String value;
+            TypeSymbol type = (TypeSymbol) localVar.getType().getSymbol();
+            if (type == ClassSymbol.INT) {
+                value = get_or_generate_int(0);
+            } else if (type == ClassSymbol.STRING) {
+                value = get_or_generate_str("");
+            } else if (type == ClassSymbol.BOOL) {
+                value = get_or_generate_bool("false");
+            } else {
+                initExpr = "li $a0 ";
+                value = "0";
+            }
+            initExpr = initExpr + value;
+            initExprSt = templates.getInstanceOf("sequence");
+            initExprSt.add("e", initExpr);
+        } else {
+            initExprSt = localVar.getInit().accept(this);
+        }
+
+        ST body = let.getBody().accept(this);
+
+        letST.add("offset", letOffset).add("init_expr", initExprSt).add("body", body);
+
+        letOffset -= 4;
+        return letST;
     }
 
     @Override
