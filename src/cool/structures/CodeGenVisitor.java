@@ -46,7 +46,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     final static int PROTOTYPE_LENGTH = 12;
     final static int ACTIVATION_RECORD_LENGTH = 12;
 
-    int letOffset = 0;
+    int letIndex = 0;
 
     private void dfs(ClassSymbol node, int attrIndex, int methodIndex) {
         for (IdSymbol attr : node.getAttributes().values()) {
@@ -370,9 +370,9 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         } else if (symbol.getGroup() == Symbol.FORMAL_GROUP) {
             st = templates.getInstanceOf("formal_get");
             st.add("offset", symbol.getIndex() * 4 + ACTIVATION_RECORD_LENGTH);
-        } else {
+        } else if (symbol.getGroup() == Symbol.LOCAL_GROUP) {
             st = templates.getInstanceOf("formal_get");
-            st.add("offset", -symbol.getIndex()*4);
+            st.add("offset", -symbol.getIndex() * 4);
         }
 
         return st;
@@ -528,16 +528,17 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Let let) {
-        letOffset += 4;
+        letIndex += 1;
         ST letST = templates.getInstanceOf("let");
         ST initExprSt;
 
         Local localVar = let.getLocal();
         IdSymbol symbol = (IdSymbol)localVar.getName().getSymbol();
-        symbol.setIndex(letOffset/4);
+        symbol.setGroup(Symbol.LOCAL_GROUP);
+        symbol.setIndex(letIndex);
 
         if (localVar.getInit() == null){
-            String initExpr = "la  $a0 ";
+            String initExpr = "la      $a0 ";
             String value;
 
             TypeSymbol type = ((IdSymbol)localVar.getName().getSymbol()).getType();
@@ -548,7 +549,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
             } else if (type == ClassSymbol.BOOL) {
                 value = get_or_generate_bool("false");
             } else {
-                initExpr = "li $a0 ";
+                initExpr = "li      $a0 ";
                 value = "0";
             }
             initExpr = initExpr + value;
@@ -560,9 +561,9 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
         ST body = let.getBody().accept(this);
 
-        letST.add("offset", letOffset).add("init_expr", initExprSt).add("body", body);
+        letST.add("offset", letIndex * 4).add("init_expr", initExprSt).add("body", body);
 
-        letOffset -= 4;
+        letIndex -= 1;
         return letST;
     }
 
@@ -661,7 +662,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
             ST formal_set = templates.getInstanceOf("formal_set");
             formal_set.add("offset", symbol.getIndex() * 4 + ACTIVATION_RECORD_LENGTH);
             st.add("e", formal_set);
-        } else {
+        } else if (symbol.getGroup() == Symbol.LOCAL_GROUP) {
             ST formal_set = templates.getInstanceOf("formal_set");
             formal_set.add("offset", -symbol.getIndex() * 4);
             st.add("e", formal_set);
