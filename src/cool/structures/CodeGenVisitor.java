@@ -42,6 +42,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     int classIndex = 0;
     int dispatchIndex = 0;
+    int ifIndex = 0;
 
     final static int PROTOTYPE_LENGTH = 12;
     final static int ACTIVATION_RECORD_LENGTH = 12;
@@ -596,7 +597,14 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(If if_) {
-        return null;
+        var st = templates.getInstanceOf("if");
+        st.add("e1", if_.getCond().accept(this))
+                .add("e2", if_.getThenBranch().accept(this))
+                .add("e3",  if_.getElseBranch().accept(this))
+                .add("index", ifIndex);
+
+        ifIndex++;
+        return st;
     }
 
     @Override
