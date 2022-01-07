@@ -400,12 +400,14 @@ D_protObj:
     .word   18
     .word   3
     .word   D_dispTab
-
+    .word   int_const3
+    .word   str_const12
 E_protObj:
     .word   19
     .word   3
     .word   E_dispTab
-
+    .word   int_const3
+    .word   str_const12
 Main_protObj:
     .word   20
     .word   6
@@ -423,7 +425,8 @@ F_protObj:
     .word   22
     .word   3
     .word   F_dispTab
-
+    .word   int_const3
+    .word   bool_const0
 IO_protObj:
     .word   34
     .word   3
@@ -461,12 +464,14 @@ D_protObj:
     .word   29
     .word   3
     .word   D_dispTab
-
+    .word   int_const3
+    .word   str_const12
 E_protObj:
     .word   30
     .word   3
     .word   E_dispTab
-
+    .word   int_const3
+    .word   str_const12
 Main_protObj:
     .word   31
     .word   6
@@ -484,7 +489,8 @@ F_protObj:
     .word   33
     .word   3
     .word   F_dispTab
-
+    .word   int_const3
+    .word   bool_const0
 IO_protObj:
     .word   34
     .word   3
@@ -522,12 +528,14 @@ D_protObj:
     .word   40
     .word   3
     .word   D_dispTab
-
+    .word   int_const3
+    .word   str_const12
 E_protObj:
     .word   41
     .word   3
     .word   E_dispTab
-
+    .word   int_const3
+    .word   str_const12
 Main_protObj:
     .word   42
     .word   6
@@ -545,7 +553,8 @@ F_protObj:
     .word   44
     .word   3
     .word   F_dispTab
-
+    .word   int_const3
+    .word   bool_const0
 
 Object_dispTab:
     .word   Object.abort
