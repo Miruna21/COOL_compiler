@@ -3,6 +3,7 @@ package cool.structures;
 import cool.ast.ASTVisitor;
 import cool.ast.nodes.*;
 import cool.compiler.Compiler;
+import cool.lexer.CoolLexer;
 import cool.parser.CoolParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.stringtemplate.v4.ST;
@@ -552,6 +553,12 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Arithmetic arithmetic) {
+        if (arithmetic.getToken().getType() == CoolLexer.PLUS) {
+            ST expr = templates.getInstanceOf("plus");
+            expr.add("init1", arithmetic.getLeftExpr().accept(this))
+                    .add("init2", arithmetic.getRightExpr().accept(this));
+            return expr;
+        }
         return null;
     }
 
