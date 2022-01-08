@@ -266,3 +266,16 @@ isvoid(e, index, false_const, true_const) ::= <<
     la      $a0 <false_const>
 isvoid<index>:
 >>
+
+not(e, true_const, false_const, index) ::= <<
+<e>
+    lw      $t1 12($a0)     # bool slot
+    beqz    $t1 false_to_true<index>
+true_to_false<index>:
+    la      $a0 <false_const>
+    b end_not<index>
+false_to_true<index>:
+    la      $a0 <true_const>
+end_not<index>:
+
+>>

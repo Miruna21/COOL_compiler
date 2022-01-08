@@ -41,6 +41,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     int dispatchIndex = 0;
     int ifIndex = 0;
     int isVoidIndex = 0;
+    int notIndex = 0;
 
     final static int PROTOTYPE_LENGTH = 12;
     final static int ACTIVATION_RECORD_LENGTH = 12;
@@ -502,7 +503,17 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Not not) {
-        return null;
+        ST st = templates.getInstanceOf("not");
+        String false_const = get_or_generate_bool("false");
+        String true_const = get_or_generate_bool("true");
+
+        st.add("e", not.getExpr().accept(this))
+                .add("true_const", true_const)
+                .add("false_const", false_const)
+                .add("index", notIndex);
+        notIndex++;
+
+        return st;
     }
 
     @Override
