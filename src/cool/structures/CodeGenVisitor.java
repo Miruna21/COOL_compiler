@@ -9,10 +9,7 @@ import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CodeGenVisitor implements ASTVisitor<ST> {
     //for debugging
@@ -64,7 +61,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         node.setTotal_attributes(attrIndex);
 
         for (MethodSymbol method : node.getMethods().values()) {
-            method.setIndex(methodIndex);
+//            method.setIndex(methodIndex);
             method.setGroup(Symbol.METHOD_GROUP);
             methodIndex++;
         }
@@ -84,7 +81,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         // reprezentarea claselor si a tabelurilor de metode
         allObjects.add("e", createClassST(class_));
 
-        ST methods = createMethods(class_);
+        ST methods = createMethods(class_, new LinkedHashMap<>(), true);
 
         ST dispTable = templates.getInstanceOf("dispTab");
         dispTable.add("class", class_.getName()).add("methods", methods);
@@ -255,22 +252,33 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         return classProt;
     }
 
-    public ST createMethods(ClassSymbol classSymbol) {
-        ST methods;
-        if (classSymbol.getParent() == SymbolTable.globals) {
-            methods = templates.getInstanceOf("sequence");
-        } else {
-            methods = createMethods((ClassSymbol) classSymbol.getParent());
+    public ST createMethods(ClassSymbol classSymbol, LinkedHashMap<String, MethodSymbol> methodsNames, boolean isFirst) {
+        if (classSymbol.getParent() != SymbolTable.globals) {
+            createMethods((ClassSymbol) classSymbol.getParent(), methodsNames, false);
         }
 
         for (MethodSymbol method : classSymbol.getMethods().values()) {
             String methodName = method.getName();
-            ST methodST = templates.getInstanceOf("word");
-            methodST.add("value", classSymbol.getName() + "." + methodName);
-            methods.add("e", methodST);
+            methodsNames.put(methodName, method);
         }
 
-        return methods;
+        if (isFirst) {
+            ST methods = templates.getInstanceOf("sequence");
+            int index = 0;
+            for(String methodName : methodsNames.keySet()) {
+                MethodSymbol method = methodsNames.get(methodName);
+                method.setIndex(index);
+                index ++;
+
+                String className = ((ClassSymbol)method.getParent()).getName();
+                ST methodST = templates.getInstanceOf("word");
+                methodST.add("value", className + "." + methodName);
+                methods.add("e", methodST);
+            }
+            return methods;
+        }
+
+        return null;
     }
 
     @Override
@@ -389,6 +397,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     }
 
     String get_or_generate_str(String literal) {
+
         if (!str_constants.containsKey(literal)) {
             generate_str_constant(literal);
         }
@@ -419,6 +428,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
         ST st = templates.getInstanceOf("str_const");
         int len = literal.length();
+        literal = literal.replace("\n", "\\n");
         int dim = (int) (4 + Math.ceil((len + 1)/ 4.0f));
 
         if (!int_constants.containsKey(len))
@@ -550,8 +560,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         symbol.setGroup(Symbol.LOCAL_GROUP);
         symbol.setIndex(letIndex);
 
-        if (localVar.getInit() == null){
-            String initExpr = "la      $a0 ";
+        if (localVar.getInit() == null) {
+            ST initExpr = templates.getInstanceOf("init_constant");
             String value;
 
             TypeSymbol type = ((IdSymbol)localVar.getName().getSymbol()).getType();
@@ -562,10 +572,11 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
             } else if (type == ClassSymbol.BOOL) {
                 value = get_or_generate_bool("false");
             } else {
-                initExpr = "li      $a0 ";
+                initExpr = templates.getInstanceOf("init_address");
                 value = "0";
             }
-            initExpr = initExpr + value;
+
+            initExpr.add("value", value);
             initExprSt = templates.getInstanceOf("sequence");
             initExprSt.add("e", initExpr);
         } else {
@@ -615,7 +626,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     @Override
     public ST visit(AtDispatch atDispatch) {
         Symbol symbol = atDispatch.getMethodName().getSymbol();
-        ST st = templates.getInstanceOf("dispatch");
+        ST st = templates.getInstanceOf("at_dispatch");
 
         String file_name = get_or_generate_str(getFileName(atDispatch.getContext()));
         int line_number = atDispatch.getToken().getLine();
@@ -631,7 +642,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         }
 
         st.add("args", argsST).add("e", atDispatch.getExpr().accept(this))
-                .add("index", dispatchIndex).add("file_name", file_name).add("line_number", line_number)
+                .add("index", dispatchIndex).add("class", atDispatch.getParent().getSymbol().getName()).add("file_name", file_name).add("line_number", line_number)
                 .add("method_offset", symbol.getIndex() * 4);
 
         dispatchIndex++;
