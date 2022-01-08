@@ -520,7 +520,10 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Negate negate) {
-        return null;
+        ST negSt = templates.getInstanceOf("neg");
+        negSt.add("init", negate.getExpr().accept(this));
+
+        return negSt;
     }
 
     @Override
@@ -554,13 +557,25 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Arithmetic arithmetic) {
+        ST expr = templates.getInstanceOf("arithmetic");
+        expr.add("init1", arithmetic.getLeftExpr().accept(this))
+                .add("init2", arithmetic.getRightExpr().accept(this));
+        ST op;
         if (arithmetic.getToken().getType() == CoolLexer.PLUS) {
-            ST expr = templates.getInstanceOf("plus");
-            expr.add("init1", arithmetic.getLeftExpr().accept(this))
-                    .add("init2", arithmetic.getRightExpr().accept(this));
-            return expr;
+            op = templates.getInstanceOf("plus");
+        } else if (arithmetic.getToken().getType() == CoolLexer.MINUS) {
+            op = templates.getInstanceOf("minus");
+        } else if (arithmetic.getToken().getType() == CoolLexer.MULT) {
+            op = templates.getInstanceOf("mult");
+        } else if (arithmetic.getToken().getType() == CoolLexer.DIV) {
+            op = templates.getInstanceOf("div");
+        } else {
+            return  null;
         }
-        return null;
+
+        expr.add("op", op);
+
+        return expr;
     }
 
     @Override
