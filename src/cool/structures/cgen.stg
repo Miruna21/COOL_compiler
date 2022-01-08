@@ -257,3 +257,12 @@ true_branch<index>:
 end_if<index>:
 
 >>
+
+isvoid(e, index, false_const, true_const) ::= <<
+<e>
+    move    $t1 $a0
+    la      $a0 <true_const>
+    beqz    $t1 isvoid<index>
+    la      $a0 <false_const>
+isvoid<index>:
+>>

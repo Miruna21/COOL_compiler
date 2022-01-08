@@ -40,6 +40,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     int classIndex = 0;
     int dispatchIndex = 0;
     int ifIndex = 0;
+    int isVoidIndex = 0;
 
     final static int PROTOTYPE_LENGTH = 12;
     final static int ACTIVATION_RECORD_LENGTH = 12;
@@ -511,7 +512,16 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(IsVoid isVoid) {
-        return null;
+        ST isVoidST = templates.getInstanceOf("isvoid");
+
+        ST expr = isVoid.getExpr().accept(this);
+        String falseBool = get_or_generate_bool("false");
+        String trueBool = get_or_generate_bool("true");
+
+        isVoidST.add("index", isVoidIndex++).add("e", expr).add("false_const", falseBool)
+                .add("true_const", trueBool);
+
+        return isVoidST;
     }
 
     @Override
