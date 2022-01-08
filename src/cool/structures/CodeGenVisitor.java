@@ -44,11 +44,13 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     int isVoidIndex = 0;
     int notIndex = 0;
     int relationalIndex = 0;
+    int equalityIndex = 0;
+    int letIndex = 0;
+    int whileIndex = 0;
 
     final static int PROTOTYPE_LENGTH = 12;
     final static int ACTIVATION_RECORD_LENGTH = 12;
 
-    int letIndex = 0;
 
     private void dfs(ClassSymbol node, int attrIndex, int methodIndex) {
         for (IdSymbol attr : node.getAttributes().values()) {
@@ -674,7 +676,13 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(While while_) {
-        return null;
+        ST whileST = templates.getInstanceOf("while");
+        ST cond = while_.getCond().accept(this);
+        ST body = while_.getBody().accept(this);
+
+        whileST.add("cond", cond).add("index", whileIndex++).add("body", body);
+
+        return whileST;
     }
 
     @Override

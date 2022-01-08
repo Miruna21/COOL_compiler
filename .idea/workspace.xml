@@ -85,8 +85,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Compiler" />
         <item itemvalue="Application.Tester3" />
+        <item itemvalue="Application.Compiler" />
         <item itemvalue="Application.Tester2" />
       </list>
     </recent_temporary>
@@ -125,7 +125,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
