@@ -554,6 +554,12 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Arithmetic arithmetic) {
+        if (arithmetic.getToken().getType() == CoolLexer.PLUS) {
+            ST expr = templates.getInstanceOf("plus");
+            expr.add("init1", arithmetic.getLeftExpr().accept(this))
+                    .add("init2", arithmetic.getRightExpr().accept(this));
+            return expr;
+        }
         return null;
     }
 

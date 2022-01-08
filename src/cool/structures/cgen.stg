@@ -280,6 +280,20 @@ end_not<index>:
 
 >>
 
+plus(init1, init2) ::= <<
+    <init1>
+    sw      $a0 0($sp)
+    addiu   $sp $sp -4
+    <init2>
+    jal     Object.copy
+    lw      $t1 4($sp)
+    addiu   $sp $sp 4
+    lw      $t1 12($t1)     # int slot
+    lw      $t2 12($a0)     # int slot
+    add     $t1 $t1 $t2
+    sw      $t1 12($a0)     # int slot
+>>
+
 equality(e1, e2, true_const, false_const, index) ::= <<
 <e1>
     sw      $a0 0($sp)
