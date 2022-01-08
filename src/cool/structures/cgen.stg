@@ -279,3 +279,18 @@ false_to_true<index>:
 end_not<index>:
 
 >>
+
+equality(e1, e2, true_const, false_const, index) ::= <<
+<e1>
+    sw      $a0 0($sp)
+    addiu   $sp $sp -4
+<e2>
+    lw      $t1 4($sp)
+    addiu   $sp $sp 4
+    move    $t2 $a0
+    la      $a0 <true_const>
+    beq     $t1 $t2 eq<index>
+    la      $a1 <false_const>
+    jal     equality_test
+eq<index>:
+>>

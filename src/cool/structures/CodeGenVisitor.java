@@ -3,6 +3,7 @@ package cool.structures;
 import cool.ast.ASTVisitor;
 import cool.ast.nodes.*;
 import cool.compiler.Compiler;
+import cool.lexer.CoolLexer;
 import cool.parser.CoolParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.stringtemplate.v4.ST;
@@ -42,6 +43,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     int ifIndex = 0;
     int isVoidIndex = 0;
     int notIndex = 0;
+    int equalityIndex = 0;
 
     final static int PROTOTYPE_LENGTH = 12;
     final static int ACTIVATION_RECORD_LENGTH = 12;
@@ -557,7 +559,23 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Relational relational) {
-        return null;
+        ST st = null;
+
+        if (relational.getToken().getType() == CoolLexer.EQUAL) {
+            st = templates.getInstanceOf("equality");
+
+            String false_const = get_or_generate_bool("false");
+            String true_const = get_or_generate_bool("true");
+
+            st.add("e1", relational.getLeftExpr().accept(this))
+                    .add("e2", relational.getRightExpr().accept(this))
+                    .add("true_const", true_const)
+                    .add("false_const", false_const)
+                    .add("index", equalityIndex);
+            equalityIndex++;
+        }
+
+        return st;
     }
 
     @Override
