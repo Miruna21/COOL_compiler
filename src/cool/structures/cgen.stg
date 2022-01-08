@@ -83,6 +83,14 @@ word(value) ::= <<
     .word   <value>
 >>
 
+init_constant(value) ::= <<
+    la      $a0 <value>
+>>
+
+init_address(value) ::= <<
+    li      $a0 <value>
+>>
+
 protObj(class, index, dim, disp_ptr, attributes) ::= <<
 <class>_protObj:
     .word   <index>
@@ -196,6 +204,18 @@ dispatch<index>:
     jalr    $t1
 >>
 
+at_dispatch(e, args, index, class, file_name, line_number, method_offset) ::= <<
+<args>
+<e>
+    bnez    $a0 dispatch<index>     # dispatch object in $a0
+<dispatch_abort_call(file_name, line_number)>
+dispatch<index>:
+    la      $t1 <class>_dispTab   # dispatch table
+    lw      $t1 <method_offset>($t1)   # method offset
+    jalr    $t1
+>>
+
+
 let(init_expr, body, offset) ::= <<
     addiu   $sp $sp -4   # locals alloc
     <init_expr>
@@ -228,10 +248,10 @@ new_self_type() ::= <<
 if(e1, e2, e3, index) ::= <<
 <e1>
     lw      $t1 12($a0)     # bool slot
-    beqz    $t1 true_branch
+    beqz    $t1 true_branch<index>
 false_branch<index>:
 <e2>
-    b       end_if
+    b       end_if<index>
 true_branch<index>:
 <e3>
 end_if<index>:
