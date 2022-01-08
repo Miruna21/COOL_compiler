@@ -43,7 +43,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     int ifIndex = 0;
     int isVoidIndex = 0;
     int notIndex = 0;
-    int equalityIndex = 0;
+    int relationalIndex = 0;
 
     final static int PROTOTYPE_LENGTH = 12;
     final static int ACTIVATION_RECORD_LENGTH = 12;
@@ -565,22 +565,33 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Relational relational) {
-        ST st = null;
+        ST st;
+
+        String false_const = get_or_generate_bool("false");
+        String true_const = get_or_generate_bool("true");
 
         if (relational.getToken().getType() == CoolLexer.EQUAL) {
             st = templates.getInstanceOf("equality");
-
-            String false_const = get_or_generate_bool("false");
-            String true_const = get_or_generate_bool("true");
 
             st.add("e1", relational.getLeftExpr().accept(this))
                     .add("e2", relational.getRightExpr().accept(this))
                     .add("true_const", true_const)
                     .add("false_const", false_const)
-                    .add("index", equalityIndex);
-            equalityIndex++;
+                    .add("index", relationalIndex);
+
+        } else {
+            st = templates.getInstanceOf("compare");
+            st.add("e1", relational.getLeftExpr().accept(this))
+                    .add("e2", relational.getRightExpr().accept(this))
+                    .add("true_const", true_const)
+                    .add("false_const", false_const)
+                    .add("index", relationalIndex);
+
+            if (relational.getToken().getType() == CoolLexer.LESS)
+                st.add("op_less", 0);
         }
 
+        relationalIndex++;
         return st;
     }
 

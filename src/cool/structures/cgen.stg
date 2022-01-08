@@ -308,3 +308,26 @@ equality(e1, e2, true_const, false_const, index) ::= <<
     jal     equality_test
 eq<index>:
 >>
+
+compare_less(index) ::= <<
+    blt     $t1 $t2 compare<index>
+>>
+
+compare_less_equal(index) ::= <<
+    ble     $t1 $t2 compare<index>
+>>
+
+compare(e1, e2, true_const, false_const, index, op_less) ::= <<
+<e1>
+    sw      $a0 0($sp)
+    addiu   $sp $sp -4
+<e2>
+    lw      $t1 4($sp)
+    addiu   $sp $sp 4
+    lw      $t1 12($t1)     # int slot
+    lw      $t2 12($a0)     # int slot
+    la      $a0 <true_const>
+<if(op_less)><compare_less(index)><else><compare_less_equal(index)><endif>
+    la      $a0 <false_const>
+compare<index>:
+>>

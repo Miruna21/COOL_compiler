@@ -59,7 +59,7 @@
     <configuration name="Compiler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cool.compiler.Compiler" />
       <module name="Tema3" />
-      <option name="PROGRAM_PARAMETERS" value="src/tests/tema3/21-if.cl" />
+      <option name="PROGRAM_PARAMETERS" value="src/tests/tema3/27-compare.cl" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
