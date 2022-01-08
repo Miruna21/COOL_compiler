@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fc68792-4f33-4dfb-96d1-c139d5890f29" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cool/structures/CodeGenVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cool/structures/CodeGenVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cool/structures/cgen.stg" beforeDir="false" afterPath="$PROJECT_DIR$/src/cool/structures/cgen.stg" afterDir="false" />
     </list>
