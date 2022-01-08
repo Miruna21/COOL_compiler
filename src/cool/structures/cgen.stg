@@ -280,7 +280,23 @@ end_not<index>:
 
 >>
 
-plus(init1, init2) ::= <<
+plus() ::= <<
+    add     $t1 $t1 $t2
+>>
+
+minus() ::= <<
+    sub     $t1 $t1 $t2
+>>
+
+div() ::= <<
+    div     $t1 $t1 $t2
+>>
+
+mult() ::= <<
+    mul     $t1 $t1 $t2
+>>
+
+arithmetic(init1, init2, op) ::= <<
     <init1>
     sw      $a0 0($sp)
     addiu   $sp $sp -4
@@ -290,9 +306,18 @@ plus(init1, init2) ::= <<
     addiu   $sp $sp 4
     lw      $t1 12($t1)     # int slot
     lw      $t2 12($a0)     # int slot
-    add     $t1 $t1 $t2
+    <op>
     sw      $t1 12($a0)     # int slot
 >>
+
+neg(init) ::= <<
+    <init>
+    jal     Object.copy
+    lw      $t1 12($a0)     # int slot
+    neg     $t1 $t1
+    sw      $t1 12($a0)     # int slot
+>>
+
 
 equality(e1, e2, true_const, false_const, index) ::= <<
 <e1>
