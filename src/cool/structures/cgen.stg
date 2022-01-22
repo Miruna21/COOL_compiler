@@ -367,3 +367,41 @@ while<index>:
 endwhile<index>:
     move $a0 $zero
 >>
+
+case_abort_call(default_branch_index) ::= <<
+casebranch<default_branch_index>:
+    lw      $a0 -4($fp)
+    jal     _case_abort
+>>
+
+case_abort2_call(file_name, line_number) ::= <<
+    la      $a0 <file_name>
+    li      $t1 <line_number>
+    jal     _case_abort2
+>>
+
+case_branch_get() ::= <<
+    lw      $a0 -4($fp)
+>>
+
+case_branch(first_branch, expr, min_tag, max_tag, crt_branch_index, next_branch_index, case_index) ::= <<
+<if(first_branch)><else>casebranch<crt_branch_index>:<endif>
+    blt     $t1 <min_tag> casebranch<next_branch_index>
+    bgt     $t1 <max_tag> casebranch<next_branch_index>
+<expr>
+    b endcase<case_index>
+>>
+
+case(case_cond, case_branches, default_branch_index, file_name, line_number, case_index) ::= <<
+    addiu   $sp $sp -4   # case alloc
+<case_cond>
+    bnez    $a0 case<case_index>
+<case_abort2_call(file_name, line_number)>   # case on void
+case<case_index>:
+    sw      $a0 -4($fp)     # save case object on stack
+    lw      $t1 0($a0)      # class tag
+<case_branches>
+<case_abort_call(default_branch_index)>   # unmatched case branch
+endcase<case_index>:
+    addiu   $sp $sp 4    # case free
+>>

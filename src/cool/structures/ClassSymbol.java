@@ -13,6 +13,7 @@ public class ClassSymbol extends TypeSymbol {
     protected String parentName;
     protected List<ClassSymbol> children;
     protected Integer total_attributes = 0;
+    protected Integer max_subtree_tag;
 
     public static final ClassSymbol OBJECT  = new ClassSymbol("","Object");
     public static final ClassSymbol INT   = new ClassSymbol("Object","Int");
@@ -117,6 +118,14 @@ public class ClassSymbol extends TypeSymbol {
 
     public Map<String, MethodSymbol> getMethods() {
         return methods;
+    }
+
+    public Integer getMaxSubtreeTag() {
+        return max_subtree_tag;
+    }
+
+    public void setMaxSubtreeTag(Integer max_subtree_tag) {
+        this.max_subtree_tag = max_subtree_tag;
     }
 
     @Override

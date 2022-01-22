@@ -44,13 +44,13 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     int isVoidIndex = 0;
     int notIndex = 0;
     int relationalIndex = 0;
-    int equalityIndex = 0;
     int letIndex = 0;
     int whileIndex = 0;
+    int caseIndex = 0;
+    int caseBranchIndex = 0;
 
     final static int PROTOTYPE_LENGTH = 12;
     final static int ACTIVATION_RECORD_LENGTH = 12;
-
 
     private void dfs(ClassSymbol node, int attrIndex, int methodIndex) {
         for (IdSymbol attr : node.getAttributes().values()) {
@@ -58,17 +58,14 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
                 attr.setGroup(Symbol.ATTRIBUTE_GROUP);
                 continue;
             }
-            TypeSymbol type = attr.getType();
-            type.setOffset(attrIndex * 4 + PROTOTYPE_LENGTH);
+
             attr.setIndex(attrIndex);
             attr.setGroup(Symbol.ATTRIBUTE_GROUP);
             attrIndex++;
         }
         node.setTotal_attributes(attrIndex);
 
-        for (MethodSymbol method : node.getMethods().values()) {
-//            method.setIndex(methodIndex);
-            method.setGroup(Symbol.METHOD_GROUP);
+        for (MethodSymbol ignored : node.getMethods().values()) {
             methodIndex++;
         }
 
@@ -76,11 +73,12 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
         for (ClassSymbol child : node.getChildren()) {
             child.setIndex(classIndex);
-            child.setGroup(Symbol.TYPE_GROUP);
+            child.setMaxSubtreeTag(classIndex);
 
             classIndex++;
             dfs(child, attrIndex, methodIndex);
         }
+        node.setMaxSubtreeTag(classIndex - 1);
     }
 
     private void generateClassRepresentation(ClassSymbol class_) {
@@ -111,7 +109,7 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
     private void generateClassesRepresentations() {
         ClassSymbol root = ClassSymbol.OBJECT;
         root.setIndex(classIndex);
-        root.setGroup(Symbol.TYPE_GROUP);
+        root.setMaxSubtreeTag(classIndex);
 
         classIndex++;
         dfs(root, 0, 0);
@@ -390,6 +388,8 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
         } else if (symbol.getGroup() == Symbol.LOCAL_GROUP) {
             st = templates.getInstanceOf("formal_get");
             st.add("offset", -symbol.getIndex() * 4);
+        } else if (symbol.getGroup() == Symbol.CASE_GROUP) {
+            st = templates.getInstanceOf("case_branch_get");
         }
 
         return st;
@@ -614,12 +614,65 @@ public class CodeGenVisitor implements ASTVisitor<ST> {
 
     @Override
     public ST visit(Case case_) {
-        return null;
+        ST caseST = templates.getInstanceOf("case");
+
+        String file_name = get_or_generate_str(getFileName(case_.getContext()));
+        int line_number = case_.getToken().getLine();
+
+        caseST.add("case_cond", case_.getCond().accept(this));
+        ST branchesST = templates.getInstanceOf("sequence");
+
+        List<CaseBranch> branches = case_.getCaseBranches();
+        branches.sort((branch1, branch2) -> {
+            IdSymbol symbol1 = (IdSymbol) branch1.getName().getSymbol();
+            IdSymbol symbol2 = (IdSymbol) branch2.getName().getSymbol();
+            int tag1 = symbol1.getType().getIndex();
+            int tag2 = symbol2.getType().getIndex();
+
+            return Integer.compare(tag2, tag1);
+        });
+        int n = branches.size();
+
+        for (int i = 0; i < n; i++) {
+            Symbol caseBranchSymbol = branches.get(i).getName().getSymbol();
+            caseBranchSymbol.setIndex(i);
+            caseBranchSymbol.setGroup(Symbol.CASE_GROUP);
+
+            branchesST.add("e", branches.get(i).accept(this));
+        }
+
+        caseST.add("case_branches", branchesST)
+                .add("default_branch_index", caseBranchIndex)
+                .add("file_name", file_name)
+                .add("line_number", line_number)
+                .add("case_index", caseIndex);
+        caseBranchIndex++;
+        caseIndex++;
+
+        return caseST;
     }
 
     @Override
     public ST visit(CaseBranch caseBranch) {
-        return null;
+        IdSymbol symbol = (IdSymbol) caseBranch.getName().getSymbol();
+        ClassSymbol classSymbol = (ClassSymbol) symbol.getType();
+
+        int index = symbol.getIndex();
+        ST st = templates.getInstanceOf("case_branch");
+
+        if (index == 0) {
+            st.add("first_branch", 0);
+        }
+
+        st.add("expr", caseBranch.getBody().accept(this))
+                .add("min_tag", classSymbol.getIndex()).add("max_tag", classSymbol.getMaxSubtreeTag())
+                .add("crt_branch_index", caseBranchIndex)
+                .add("next_branch_index", caseBranchIndex + 1)
+                .add("case_index", caseIndex);
+
+        caseBranchIndex++;
+
+        return st;
     }
 
     @Override
